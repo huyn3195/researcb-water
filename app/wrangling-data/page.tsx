@@ -157,6 +157,85 @@ clean1 <- clean1 |>
 clean1 <- clean1 |> bind_rows(new_rows)`}
             </code>
           </pre>
+          <h2 className="font-semibold text-2xl mt-4">Finishing the data</h2>
+          <p>
+            As outlined on the{" "}
+            <a
+              href="https://drive.google.com/file/d/1Ij27SHfozgEp2rdWs8slBkOX7UH1H4oq/view"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
+            >
+              OP 21 scoring guide
+            </a>{" "}
+            (version 2.2), schools were assigned one of three point maximums
+            (4/3, 5/3, or 2) for their three-part score. This assignment was
+            determined by the schools' physical risk quantities, as replicated
+            in our wrangling with the creation of a `max_part_pts` column.
+          </p>
+          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+            <code className="text-sm">
+              {`clean1 <- clean1 |>
+  mutate(
+    max_part_pts = case_when(
+      physical_risk_quantity == "Low" ~ 1 + 1/3,
+      physical_risk_quantity == "Low to Medium" ~ 1 + 1/3,
+      physical_risk_quantity == "Medium to High" ~ 1 + 2/3,
+      physical_risk_quantity == "High" ~ 2,
+      physical_risk_quantity == "Extremely High" ~ 2,
+      TRUE ~ NA_real_
+    )
+  )`}
+            </code>
+          </pre>
+          <h2 className="font-semibold text-2xl mt-4">Add score</h2>
+          <p>
+            Using themax_part_ptscolumn and following the part 1-3 points earned
+            formulas on the scoringguide, the final OP 21 score for each school
+            was calculated. Although not mentioned in the scoringguide but
+            required to recreate the original values, schools scoring below 0 or
+            above the maximumin a part had their score rounded to the respective
+            bound (0 or max, whichever is closer)
+          </p>
+          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+            <code className="text-sm">
+              {`clean1 <- clean1 |>
+  mutate(p1_pts = pmin(pmax(0, 
+as.numeric((clean1[[59]]/0.3)*((clean1[[36]]-clean1[[35]])/clean1[[36]]))), clean1[[59]]),
+  
+p2_pts = pmin(pmax(0, 
+as.numeric((clean1[[59]]/0.3)*((clean1[[43]]-clean1[[42]])/clean1[[43]]))), clean1[[59]]),
+         
+p3_pts = pmin(pmax(0, 
+as.numeric((clean1[[59]]/0.3)*((clean1[[50]]-clean1[[49]])/clean1[[50]]))), clean1[[59]]),
+         
+         op21_score = p1_pts+p2_pts+p3_pts
+         )`}
+            </code>
+          </pre>
+          <h2 className="font-semibold text-2xl mt-4">Categorize</h2>
+          <p>
+            Finally, a categorical variablerisk_group, dividing the schools
+            among the same logic as themax_part_ptsvariable, was created to aid
+            in summary statistics and visualizations wishing tocompare schools
+            by a condensed (three groups instead of five) categorical
+            representation of theirphysical risk quantity
+          </p>
+          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+            <code className="text-sm">
+              {`clean1 <- clean1 |>
+  mutate(
+    risk_group = case_when(
+      physical_risk_quantity == "Low" ~ "1 (Low and Low to Medium)",
+      physical_risk_quantity == "Low to Medium" ~ "1 (Low and Low to Medium)",
+      physical_risk_quantity == "Medium to High" ~ "2 (Medium to High)",
+      physical_risk_quantity == "High" ~ "3 (High and Extremely High)",
+      physical_risk_quantity == "Extremely High" ~ "3 (High and Extremely High)",
+      TRUE ~ NA_character_
+    )
+  )`}
+            </code>
+          </pre>
         </div>
       </div>
     </div>
