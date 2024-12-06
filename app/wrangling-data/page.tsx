@@ -65,10 +65,10 @@ clean1 <- clean1 |>
             Manual Fix for University Names
           </h2>
           <p>
-            Similarly, the original excel spreadsheet resolved the "é" and "à"
-            characters of seven university names to incorrect characters such as
-            the square root and copyright symbol, so these names were manually
-            fixed as well.
+            Similarly, the original excel spreadsheet resolved the &quot;é&quot;
+            and &quot;à&quot; characters of seven university names to incorrect
+            characters such as the square root and copyright symbol, so these
+            names were manually fixed as well.
           </p>
 
           {/* Code block */}
