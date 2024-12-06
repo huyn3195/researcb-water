@@ -1,9 +1,34 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
+  const [background, setBackground] = useState(
+    "bg-gradient-to-r from-blue-50 to-blue-200"
+  );
+
+  useEffect(() => {
+    const colors = [
+      "bg-gradient-to-r from-blue-50 to-blue-200",
+      "bg-gradient-to-r from-green-50 to-green-200",
+      "bg-gradient-to-r from-pink-50 to-pink-200",
+      "bg-gradient-to-r from-purple-50 to-purple-200",
+    ];
+    let index = 0;
+
+    const interval = setInterval(() => {
+      index = (index + 1) % colors.length;
+      setBackground(colors[index]);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gradient-to-r from-blue-50 to-blue-200">
+    <div
+      className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] ${background}`}
+    >
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -47,6 +72,12 @@ export default function Home() {
             className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
           >
             Part 1: Wrangling Data
+          </Link>
+          <Link
+            href="/story"
+            className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+          >
+            Part 2: Our story
           </Link>
         </div>
       </main>
