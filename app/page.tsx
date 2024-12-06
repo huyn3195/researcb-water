@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Image from "next/image";
 
 export default function Home() {
@@ -41,6 +42,12 @@ export default function Home() {
           >
             Read our analysis
           </a>
+          <Link
+            href="/wrangling-data"
+            className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+          >
+            Part 1: Wrangling Data
+          </Link>
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
