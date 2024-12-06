@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Navbar() {
+export default function Navbar({ className }: { className?: string }) {
   return (
     <nav className="w-full bg-green-600 text-white py-4 px-8 shadow-md">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
