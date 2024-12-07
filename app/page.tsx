@@ -96,7 +96,59 @@ export default function Home() {
                 <li>St. Olaf College</li>
               </ul>
             </div>
-            <p className="text-lg mt-4 text-gray-700"></p>
+
+            <p className="text-lg mt-4 text-black">
+              Initially, our group was provided with an Excel Spreadsheet
+              containing 348 institutions and 58 variables related to water use.
+              However, we needed to first understand how the OP 21 credit score
+              was calculated to understand our variables in context. Following
+              the{" "}
+              <a
+                href="https://drive.google.com/file/d/1Ij27SHfozgEp2rdWs8slBkOX7UH1H4oq/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
+              >
+                OP 21 scoring guide
+              </a>{" "}
+              (version 2.2), we learned the following:
+            </p>
+            <div className="pl-4 mt-6">
+              <ul className="list-disc list-inside text-gray-600 text-sm sm:text-base ml-4">
+                <li>
+                  Institutions are divided into one of three categories of
+                  physical risk quantity, determined by the amount of "water
+                  stress and scarcity" as well as "relative water abundance."
+                </li>
+                <li>
+                  These physical risk quantities determine the total available
+                  points that an institution can earn for the OP 21 credit
+                </li>
+                <li>
+                  The OP 21 score is comprised of three parts:
+                  <ol className="list-decimal list-inside text-gray-600 text-sm sm:text-base mt-2 ml-6">
+                    <li>
+                      Reduction in potable water (gallons or cubic meters) use
+                      per person
+                    </li>
+                    <li>
+                      Reduction in potable water use per unit (square feet or
+                      square meters) of floor area.
+                    </li>
+                    <li>
+                      Reduction in total water withdrawal per unit (acre or
+                      hectare) of vegetated grounds
+                    </li>
+                  </ol>
+                </li>
+              </ul>
+            </div>
+            <p className="text-lg mt-4 text-gray-700">
+              Comparing the measures of institutions across these three parts
+              (and variables that constituted them) would prove to be primary
+              focus of the advanced visualizations section of the project.
+              However, the data required quite a bit of cleaning to start.
+            </p>
           </div>
           <Image
             className="rounded-lg shadow-lg"
