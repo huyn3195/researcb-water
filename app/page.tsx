@@ -173,6 +173,12 @@ export default function Home() {
           >
             Summary Statistics
           </Link>
+          <Link
+            href="/visualizations"
+            className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+          >
+            Data Visualizations
+          </Link>
         </section>
       </main>
 

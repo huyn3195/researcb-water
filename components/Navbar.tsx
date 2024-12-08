@@ -21,6 +21,12 @@ export default function Navbar() {
           >
             Part 2: Summary Statistics
           </Link>
+          <Link
+            href="/visualizations"
+            className="hover:text-gray-200 transition-colors"
+          >
+            Part 3: Visualizations
+          </Link>
         </div>
       </div>
     </nav>
