@@ -27,6 +27,12 @@ export default function Navbar() {
           >
             Part 3: Visualizations
           </Link>
+          <Link
+            href="/advanced"
+            className="hover:text-gray-200 transition-colors"
+          >
+            Part 4: Advanced Visualizations
+          </Link>
         </div>
       </div>
     </nav>

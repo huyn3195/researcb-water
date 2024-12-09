@@ -6,16 +6,20 @@ export default function Visualizations() {
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Our findings
+          Phase 2: Advanced Analysis
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
-          Learn what we found
+          Advance Visualizations
         </p>
 
         <div className="mt-8 text-lg text-gray-700">
-          <h2 className="font-semibold text-2xl mt-4">
-            Distribution of Physical Risks
-          </h2>
+          <p>
+            The first three visualizations concern just Catholic Benchmark
+            Institutions, observing where St. Thomas lies on density plots of
+            the three percentage reduction variables of interest. Through visual
+            inspection, we can determine where St. Thomas' OP 21 performance
+            lies on the distribution of Catholic Benchmark Institutions.
+          </p>
           {/* Code block */}
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">{`order <- c("Low", "Low to Medium", "Medium to High", "High", "Extremely High")
@@ -89,8 +93,7 @@ y = str_wrap("Reduction in Potable Water Use per Weighted Campus User (%)")) +
     axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
     axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
     legend.position = "none"
-  )+
-scale_y_continuous(limits = c(-0.6,1))
+  )
 pctreduc`}</code>
           </pre>
           <div className="mt-6 mb-6">
