@@ -1,348 +1,752 @@
 import Navbar from "@/components/Navbar";
 
-export default function Visualizations() {
+export default function Advanced() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-green-50 to-green-200">
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Phase 2: Advanced Analysis
+          Phase 2 Advanced Analysis
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
-          Advance Visualizations
+          The first three visualizations concern just Catholic Benchmark
+          Institutions, observing where St. Thomas lies on density plots of the
+          three percentage reduction variables of interest. Through visual
+          inspection, we can determine where St. Thomas' OP 21 performance lies
+          on the distribution of Catholic Benchmark Institutions.
         </p>
 
         <div className="mt-8 text-lg text-gray-700">
-          <p>
-            The first three visualizations concern just Catholic Benchmark
-            Institutions, observing where St. Thomas lies on density plots of
-            the three percentage reduction variables of interest. Through visual
-            inspection, we can determine where St. Thomas' OP 21 performance
-            lies on the distribution of Catholic Benchmark Institutions.
-          </p>
           {/* Code block */}
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-            <code className="text-sm">{`order <- c("Low", "Low to Medium", "Medium to High", "High", "Extremely High")
+            <code className="text-sm">{`universities_of_interest <- c(
+  "Creighton University",
+  "Gonzaga University",
+  "Loyola University Chicago",
+  "Loyola Marymount University",
+  "Santa Clara University",
+  "Seattle University",
+  "University of Dayton",
+  "University of Notre Dame",
+  "University of San Diego",
+  "Villanova University",
+  "University of St. Thomas"
+)
 
-physrisk <- clean1 |>
-  filter(!is.na(physical_risk_quantity)) |>
-  ggplot(aes(x = 
-factor(physical_risk_quantity, levels = order), 
-fill = physical_risk_quantity)) +
-  scale_fill_manual(values = c("Low" = "#007f4e",
-                               "Low to Medium" = "#72b043",
-                               "Medium to High" = "#f8cc1b",
-                               "High" = "#f37324",
-                               "Extremely High" = "#e12729")) +
-  geom_bar(stat = "count", na.rm = TRUE) +
-  labs(title = "Distribution of Physical Risk Quantity Across Institutions",
-x = "Physical Risk Quantity", y = "Count", fill = "Risk Level") +
-  theme(
-    plot.title = 
-element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = 
-    element_text(size = 10, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = 
-    element_text(size = 10, face = "bold", margin = margin(t = 10)),
-    legend.position = "none")
-physrisk`}</code>
+catholic_unis <- clean1 %>%
+  filter(institution %in% universities_of_interest)`}</code>
           </pre>
-          <div className="mt-6 mb-6">
-            <img
-              src="/screenshots/pic6.png" // Absolute path to the screenshot
-              alt="Summary Statistics Screenshot"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-          <p>
-            Here, we are looking at the distribution of physical risk quantity
-            across each institution in our dataset. We created a bar chart that
-            counts the number of institutions in each classification of physical
-            risk quantity. I filtered to include each institution that had a
-            value for their physical risk quantity. To get the classifications
-            in the correct order, I had to manually write an order that would
-            make the more sense. I then imported a specific color palette that
-            would be helpful for a viewer to visualize the context of the graph.
-            From this visualization, we can see that a majority of these
-            institutions are classified as having a physical risk quantity of
-            "Low" or "Low to Medium". As we move along the x-axis, we see the
-            counts of institutions in each classification decreasing as the
-            physical risk quantity gets more extreme, which is a good sign.
-          </p>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`pctreduc <- clean1 |>
-filter(
-!is.na(
-percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline)) |>
-  ggplot(aes(x = factor(physical_risk_quantity, levels = order), 
-y = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, 
-fill = physical_risk_quantity)) +
-  scale_fill_manual(values = c("Low" = "#007f4e",
-                               "Low to Medium" = "#72b043",
-                               "Medium to High" = "#f8cc1b",
-                               "High" = "#f37324",
-                               "Extremely High" = "#e12729")) +
-  geom_boxplot() +
+
+          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+            <code className="text-sm">{`ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, color = risk_group)) +
+  geom_density(size = 1.5) +
+  scale_color_manual(
+    values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
+    breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
+    labels = c('Low and Low to Medium', 'High and Extremely High')
+  ) +
   labs(
-title = str_wrap(
-"Reduction in Potable Water Use per Weighted Campus User (%) by Physical Risk"),
-x = "Physical Risk", 
-y = str_wrap("Reduction in Potable Water Use per Weighted Campus User (%)")) +
+    color = "Physical Risk Group",
+    x = "Reduction in Potable Water Use per Weighted Campus User (%)",
+    y = "Density",
+    title = "Reduction in Potable Water Use per Weighted Campus User by Physical 
+    Risk Group"
+  ) +
+  scale_x_continuous(labels = scales::percent) +
+  geom_vline(xintercept = -0.010209659, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = -0.010209659, y = 0.5, label = "St. Thomas", 
+           color = "purple", vjust = -0.5, hjust = 1.1, size = 3) +
   theme(
-    plot.title = element_text(size = 8, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
     axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
     axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    legend.position = "none"
-  )
-pctreduc`}</code>
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  )`}</code>
           </pre>
           <div className="mt-6 mb-6">
             <img
-              src="/screenshots/pic7.png" // Absolute path to the screenshot
+              src="/screenshots/pic11.png" // Absolute path to the screenshot
               alt="Summary Statistics Screenshot"
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
           <p>
-            For this visualization, we are looking at the percentage of
-            reduction in potable water use per weighted campus user from the
-            baseline amount. We formatted this as a side-by-side boxplot, where
-            we can visualize the differences between each classification of
-            physical risk quantity. We used the same order for the x-axis as the
-            visualization above, along with their corresponding colors. When we
-            investigate this visualization, we can see that on average, the
-            institutions with the better classifications have a lower percentage
-            reduction in potable water use per weighted campus user from the
-            baseline amount. This would make sense because if an institution is
-            doing really well in their physical risk classification, it would be
-            difficult to reduce when you are already really low. As we move to
-            the right along the x-axis, we see that on average, the
-            classification groups with higher risk have a higher reduction in
-            potable water use per weighted campus user from the baseline amount.
-            Contextually, we can understand that this would make sense because
-            these institutions have a lot more room for improvement in their
-            reduction. We want these groups especially to have a higher
-            reduction, since they have a higher physical risk quantity.
-            Recognizing potable water use to be a common variable in the
-            calculations of a school's part 1 and part 2 scores, a data
-            visualization comparing total potable water use between baseline and
-            performance years was of interest. Given the schools of focus are
-            within two groups (Catholic Benchmark and MN Peer institutions), The
-            dataset was filtered to just include these two groups, utilizing
-            `pivot_longer` to add columns specifiying if a school's potable
-            water use data corresponded to their performance or baseline year.
+            In this data visualization, we are looking at a density chart that
+            displays the frequency of institutions and their percentage
+            reduction in potable water use per weighted campus user. We split up
+            our institutions into two groups, one group of the institutions with
+            the lower half of the physical risk quantity, and the other group is
+            the institutions with the upper half of the physical risk quantity.
+            These two groups are indicated by the red (high risk) and green (low
+            risk) lines along the chart. The the vertical dashed line represents
+            where the University of St. Thomas sits on the distribution for high
+            risk institutions. It is colored red to represent the distribution
+            it corresponds with. In this visualization it is important to note
+            that St. Thomas has actually increased potable water use per
+            weighted campus user since their baseline year. This is something
+            that we could focus on improving in the coming years.
           </p>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`catholic_benchmark_institutions <- c(
-  "Creighton University", 
-  "Gonzaga University", 
-  "Loyola University Chicago", 
-  "Loyola Marymount University", 
-  "Santa Clara University", 
-  "Seattle University", 
-  "University of Dayton", 
-  "University of Notre Dame", 
-  "University of San Diego", 
-  "Villanova University", 
-  "University of St. Thomas"
-)
-
-mn_peer_institutions <- c(
-  "Bemidji State University", "
-  Carleton College", 
-  "College of Saint Benedict", 
-  "St. John’s University", 
-  "Concordia College - Moorhead", 
-  "Macalester College", 
-  "Winona State University", 
-  "University of Minnesota, Twin Cities", 
-  "University of Minnesota, Morris", 
-  "University of Minnesota, Duluth", 
-  "Augsburg University", 
-  "Concordia in St. Paul", 
-  "Hamline University", 
-  "St. Kate’s University", 
-  "St. Olaf College", 
-  "University of St. Thomas"
-)
-
-data_long <- clean1 |>
-  filter(!is.na(potable_water_use_performance_year) & 
-           !is.na(potable_water_use_baseline_year)) |>
-  pivot_longer(
-    cols = c(
-      potable_water_use_performance_year, 
-      potable_water_use_baseline_year
-    ),
-    names_to = "year",
-    values_to = "Potable_Water_Use"
-  ) |>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean2 <- clean2 |>
   mutate(
-    year = recode(year, 
-                  potable_water_use_performance_year = "Performance Year",
-                  potable_water_use_baseline_year = "Baseline Year")
-  ) |>
-  filter(institution %in% catholic_benchmark_institutions | 
-         institution %in% mn_peer_institutions)
+  percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = ((potable_water_use_per_unit_of_floor_area_baseline_year - potable_water_use_per_unit_of_floor_area_performance_year)/potable_water_use_per_unit_of_floor_area_baseline_year))
 
-# Create the plot
-ggplot(data_long, aes(x = factor(physical_risk_quantity, levels = order), 
-y = Potable_Water_Use, fill = year)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_manual(
-    values = 
-      c("Baseline Year" = "#0072B2", "Performance Year" = "#D55E00")) +
-  labs(
-    title = "Comparison of Potable Water Use by Physical Risk",
-    x = "Physical Risk Quantity",
-    y = "Potable Water Use (gal)",
-    fill = "Year"
-  ) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 10)),  
-    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
-    legend.position = "top"
-  ) +
-  guides(fill = guide_legend(title = NULL))`}</code>
-          </pre>
-          <div className="mt-6 mb-6">
-            <img
-              src="/screenshots/pic8.png" // Absolute path to the screenshot
-              alt="Summary Statistics Screenshot"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-          <p>
-            The resulting side-by-side bar chart reveals that among these two
-            groups of schools, their combined potable water use decreases in the
-            performance year as compared to the baseline year. This reduction
-            makes sense, as these AASHE participants strive to increase their
-            sustainability, which an increase in potable water use would detract
-            from. The apparent higher use of potable water in the low risk
-            column is representative of the greater number of schools of risk
-            group 1 in the filtered dataset.
-          </p>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean1_transformed <- clean1 |>
-  select(-area_of_vegetated_grounds) |>
-  filter(institution %in% catholic_benchmark_institutions | 
-         institution %in% mn_peer_institutions) |>
-  pivot_longer(
-    cols = 
-c(total_water_withdrawal_performance_year, 
-  total_water_withdrawal_baseline_year), 
-    names_to = "year", 
-    values_to = "total_water_withdrawal") |>
-  pivot_longer(
-    cols = 
-c(area_of_vegetated_grounds_performance_year, 
-  area_of_vegetated_grounds_baseline_year), 
-    names_to = "placeholder", 
-    values_to = "area_of_vegetated_grounds") |>
-  mutate(
-    year_type = recode(year, 
-    total_water_withdrawal_performance_year = "Performance Year",
-    total_water_withdrawal_baseline_year = "Baseline Year")
-  )
-
-ggplot(clean1_transformed, aes(x = area_of_vegetated_grounds, 
-                               y = total_water_withdrawal)) +
-  geom_point(aes(color = year_type)) +
-  labs(
-    title = "Area of Vegetated Grounds vs. Total Water Withdrawal",
-    x = "Area of Vegetated Grounds (acres)",
-    y = "Total Water Withdrawal (gal)"
-  ) +
-  guides(color = guide_legend(title = NULL)) +
+ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, color = risk_group)) +
+  geom_density(size = 1.5) +
   scale_color_manual(
-  values = 
-  c("Baseline Year" = "darkgreen", "Performance Year" = "green")) +
-  theme_minimal() +
-  theme(
-plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 10)),  
-    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
-    legend.position = "top"
+    values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
+    breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
+    labels = c('Low and Low to Medium', 'High and Extremely High')
   ) +
-  guides(fill = guide_legend(title = NULL))`}</code>
-          </pre>
-          <div className="mt-6 mb-6">
-            <img
-              src="/screenshots/pic9.png" // Absolute path to the screenshot
-              alt="Summary Statistics Screenshot"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
-          <p>
-            This scatter plot shows the area of vegetated grounds in acres
-            versus the total water withdrawal for each institution in each of
-            the two institution categories provided for the project. The color
-            of the dots indicates whether the measurements are for the
-            performance year or the baseline year. To further prepare the data
-            for use in this graphic we needed to filter on the desired schools
-            and perform to pivot longers. The pivot longers are what allowed us
-            to differentiate year type by color in the graph by breaking both
-            total water withdrawal and area of vegetated grounds into their year
-            types (baseline or performance). There are a few
-            patterns/conclusions we can find from the graph. Almost all schools
-            have a very apparent drop in total water withdrawal while keeping
-            essentially the same area of vegetated grounds. There is a weak
-            positive correlation between these two variables. Most institutions
-            are clustered in the bottom left corner of the graph which indicates
-            lower values for both variables, but there are a couple higher
-            values for both variables across the plot that could be considered
-            outliers.
-          </p>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean2 <- clean1 |>
-    filter(institution %in% catholic_benchmark_institutions | 
-institution %in% mn_peer_institutions)
-
-ggplot(clean2, aes(x = op21_score)) +
-  geom_histogram(
-aes(fill = risk_group), 
-bins = 20, 
-position = "identity", color = "black") +
   labs(
-    title = "OP-21 Water Use Score By Risk Group",
-    x = "Water Use Score",
-    y = "Count",
-    fill = "Risk Group"
+    color = "Physical Risk Group",
+    x = "Reduction in Potable Water Use per Unit of Floor Area (%)",
+    y = "Density",
+    title = "Reduction in Potable Water Use per Unit of Floor Area by Physical 
+    Risk Group"
   ) +
-  scale_fill_manual(
-values = c("1 (Low and Low to Medium)" = "limegreen", 
-"2 (Medium to High)" = "gold",
-"3 (High and Extremely High)" = "red")) +
-  theme_minimal() +
+  scale_x_continuous(labels = scales::percent) +
+  geom_vline(xintercept = 0.2120922, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 0.2120922, y = 0.5, label = "St. Thomas", 
+           color = "purple", vjust = -0.5, hjust = -.15, size = 3) +
   theme(
-    plot.title = element_text(
-  size = 12, face = "bold", hjust = 0.5),
-    axis.title.y = element_text(
-  size = 10, face = "bold", margin = margin(r = 10)),  
-    axis.title.x = element_text(
-  size = 10, face = "bold", margin = margin(t = 10)),
-    legend.position = "top",
-    legend.text = element_text(size = 8)
-  ) +
-  guides(fill = guide_legend(title = NULL))`}</code>
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  )`}</code>
           </pre>
+
           <div className="mt-6 mb-6">
             <img
-              src="/screenshots/pic10.png" // Absolute path to the screenshot
+              src="/screenshots/pic12.png" // Absolute path to the screenshot
               alt="Summary Statistics Screenshot"
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
           <p>
-            This histogram shows the distribution of OP-21 water use scores with
-            coloring for the risk group. It should be noted that the highest
-            score a school with a risk group of 1 can achieve is 4, for risk
-            group 2 the highest is a 5, and for risk group 3 the highest is a 6.
-            The distribution is somewhat normal but far from perfect. It is hard
-            to have a normal distribution with only 14 cases. The values are
-            spread across from 0 to 6 and there are no outliers.
+            In this data visualization, we are looking at a density chart that
+            displays the frequency of institutions and their percentage
+            reduction in potable water use per unit of floor area. We split up
+            our institutions into two groups, one group of the institutions with
+            the lower half of the physical risk quantity, and the other group is
+            the institutions with the upper half of the physical risk quantity.
+            These two groups are indicated by the red (high risk) and green (low
+            risk) lines along the chart. The vertical dashed line represents
+            where the University of St. Thomas sits on the distribution for high
+            risk institutions. It is colored red to represent the distribution
+            it corresponds with. We can see that there are multiple institutions
+            that have increased their water use in this area because they have
+            negative reduction percentages. However, St. Thomas has reduced
+            their water use by 21% which is a substantial decrease. St. Thomas
+            is a bit behind other schools in their group, so this is something
+            that could be improved in the future, but it is still a positive.
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`ggplot(data = clean2, aes(x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, color = risk_group)) +
+  geom_density(size = 1.5) +
+  scale_color_manual(
+    values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
+    breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
+    labels = c('Low and Low to Medium', 'High and Extremely High')
+  ) +
+  labs(
+    color = "Physical Risk Group",
+    x = "Reduction in Total Water Withdrawal per Unit of Vegetated Grounds (%)",
+    y = "Density",
+    title = "Reduction in Total Water Withdrawal per Unit of Vegetated Grounds by Physical Risk Group"
+  ) +
+  scale_x_continuous(labels = scales::percent_format(scale = 1)) +
+  geom_vline(xintercept = 8.473044, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 8.473044, y = 0.0005, label = "St. Thomas", 
+           color = "purple", vjust = -0.5, hjust = -.15, size = 3) +
+  theme(
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  )`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic13.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <p>
+            In this data visualization, we are looking at a density chart that
+            displays the frequency of institutions and their percentage
+            reduction in potable water use per unit of vegetated grounds. We
+            split up our institutions into two groups, one group of the
+            institutions with the lower half of the physical risk quantity, and
+            the other group is the institutions with the upper half of the
+            physical risk quantity. These two groups are indicated by the red
+            (high risk) and green (low risk) lines along the chart. The the
+            vertical dashed line represents where the University of St. Thomas
+            sits on the distribution for high risk institutions. It is colored
+            red to represent the distribution it corresponds with. We can see
+            that some schools have increased their water use in this area.
+            However, St. Thomas has reduced their water use. This is on par with
+            the majority of the rest of the institutions in their group (high
+            and extremely high risk). St. Thomas has only reduced their water
+            use by 8%, so this is something that could be improved in the
+            future, however it is still a positive. Further exploration of the
+            three percentage variables was warranted, using scatter plots and
+            linear regression to create lines of best fit, understanding St.
+            Thomas' OP-21 performance (in both institution groups) through
+            visual and quantifiable means, respectively. To begin, institution
+            names were shortened to create more space on the charts.
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3 <- clean2 |>
+  mutate(
+    institution = case_when(
+      institution == "Creighton University" ~ "Creighton",
+      institution == "Gonzaga University" ~ "Gonzaga",
+      institution == "Loyola University Chicago" ~ "Loyola Chicago",
+      institution == "Loyola Marymount University" ~ "Loyola Marymount",
+      institution == "Santa Clara University" ~ "Santa Clara",
+      institution == "Seattle University" ~ "Seattle",
+      institution == "University of Dayton" ~ "Dayton",
+      institution == "University of Notre Dame" ~ "Notre Dame",
+      institution == "University of San Diego" ~ "San Diego",
+      institution == "Villanova University" ~ "Villanova",
+      institution == "University of St. Thomas" ~ "St. Thomas",
+      institution == "Bemidji State University" ~ "Bemidji",
+      institution == "Carleton College" ~ "Carleton MN",
+      institution == "College of Saint Benedict" ~ "St. Ben's",
+      institution == "St. John’s University" ~ "St. John's",
+      institution == "Concordia College - Moorhead" ~ "Concordia Moorhead",
+      institution == "Macalester College" ~ "Macalester",
+      institution == "Winona State University" ~ "Winona",
+      institution == "University of Minnesota, Twin Cities" ~ "UMN",
+      institution == "University of Minnesota, Morris" ~ "UMN-Morris",
+      institution == "University of Minnesota, Duluth" ~ "UMD",
+      institution == "Augsburg University" ~ "Augsburg",
+      institution == "Concordia in St. Paul" ~ "Concordia St. Paul",
+      institution == "Hamline University" ~ "Hamline",
+      institution == "St. Kate’s University" ~ "St. Kate's",
+      institution == "St. Olaf College" ~ "St. Olaf",
+      TRUE ~ institution,
+    ),
+    percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline*100,
+    percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline * 100)`}</code>
+          </pre>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`library(ggrepel)
+
+lm_model1 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, data = clean3)
+
+coefficients <- coef(lm_model1)
+intercept <- coefficients[1]
+slope <- coefficients[2]
+
+cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`}</code>
+          </pre>
+
+          <p>Equation of the line: y = 0.37 + 0.01 * x</p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3 |>
+  ggplot(aes(
+    y = op_21_percent,
+    x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline
+  )) +
+  geom_point(aes(color = risk_group)) +
+  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
+  geom_text_repel(aes(
+    label = institution,
+    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
+  ),
+  size = 3,
+  color = ifelse(clean3$institution == "St. Thomas", "purple", "gray20")) +
+  labs(
+    title = "Water Use Score by Reduction in Potable Water Use per Person",
+    x = "Reduction in Potable Water Use Per Person (percentage)",
+    y = "Water Use Score (%)",
+    color = "Physical Risk Quantity"
+  ) +
+  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
+  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  )`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic14.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`summary(lm_model1)`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic15.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+
+          <p>
+            The first scatter plot graphs a school’s OP 21 score (as a percent
+            for easier comparison acrossphysical risk quantities) against their
+            percentage reduction in potable water use per person. Asseen in the
+            chart, St. Thomas’ percentage reduction lags behind most of the
+            schools. The lineof best fit has the equationy= 0.0117x + 0.3741,
+            indicating that for a 1 unit increase in thepercentage reduction in
+            potable water use per person, the model predicts an increase of
+            0.0117 inthe water use score percent (with both coeﬀicients of the
+            equation being statistically significant).The adjusted r-squared
+            value of 0.8529 indicates a strong positive correlation between the
+            x and yvariables such that 85.29% of the variability in the water
+            use score (as a percent) is explained bythe model using percentage
+            reduction in potable water use per person as a predictor.This model
+            suggests that St. Thomas stands to gain from investing resources in
+            further reductionof potable water use per person, as other
+            institutions in the two groups were awarded higher scores with
+            greater reduction
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3_nooutliers <- clean3 |>
+  filter(institution != "UMN")
+
+lm_model2 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, data = clean3_nooutliers)
+
+coefficients <- coef(lm_model2)
+intercept <- coefficients[1]
+slope <- coefficients[2]
+
+cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`}</code>
+          </pre>
+          <p>Equation of the line: y = 0.22 + 0.01 * x</p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3_nooutliers |>
+ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline)) +
+  geom_point(aes(color = risk_group)) +
+  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
+  geom_text_repel(aes(
+    label = institution,
+    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
+  ),
+  size = 3,
+  color = ifelse(clean3_nooutliers$institution == "St. Thomas", "purple", "gray20")) +
+  labs(
+    title = "Water Use Score by Reduction in Potable Water Use per Square Foot of Floor Area",
+    x = "Reduction in Potable Water Use Per Square Foot of Floor Area (percentage)",
+    y = "Water Use Score (%)",
+    color = "Physical Risk Quantity"
+  ) +
+  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
+  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  ) `}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic17.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`summary(lm_model2)`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic18.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+
+          <p>
+            The next scatter plot graphs a school’s OP 21 score against their
+            percentage reduction in potablewater use per square foot of floor
+            area. Once again, St. Thomas’ percentage reduction lags behindmost
+            of the schools. The line of best fit has the equationy= 0.0121x +
+            0.2155, indicating thatfor a 1 unit increase in the percentage
+            reduction in potable water use per square foot of floor area,the
+            model predicts an increase of 0.0123 in the water use score percent
+            (with both coeﬀicients of theequation being statistically
+            significant). The adjusted r-squared value of 0.6717 indicates a
+            strongpositive correlation between the x and y variables such that
+            67.17% of the variability in the wateruse score (as a percent) is
+            explained by the model using percentage reduction in potable water
+            useper square foot of floor area as a predictor.This model suggests
+            that St. Thomas stands to gain from investing resources in further
+            reduction ofpotable water use per square foot of floor area, as
+            other institutions in the two groups were alwaysawarded higher
+            scores with greater reduction (however, it should be noted that
+            schools also receivedhigher scores with less reduction). Although
+            the slope of this equation is slightly greater than theprevious
+            equation (0.0121 vs. 0.0117), the smaller adjusted r-squared value
+            (0.6717 vs. 0.8529)suggests that more time invested in improving
+            reduction in water use per square foot of floor areawill not yield a
+            greater gain in OP 21 score (as a percent) than time invested in
+            improving reductionin water use per person.
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`lm_model3 <- lm(op_21_percent ~ percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, data = clean3_nooutliers)
+
+coefficients <- coef(lm_model3)
+intercept <- coefficients[1]
+slope <- coefficients[2]
+
+cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`}</code>
+          </pre>
+          <p>Equation of the line: y = 0.5 + 0.01 * x</p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3_nooutliers |>
+ggplot(aes(y=op_21_percent, x=percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline))  +
+  geom_point(aes(color = risk_group)) +
+  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
+  geom_text_repel(aes(
+    label = institution,
+    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
+  ),
+  size = 3,
+  color = ifelse(clean3_nooutliers$institution == "St. Thomas", "purple", "gray20")) +
+  labs(
+    title = "Water Use Score by Reduction in Total Water Withdrawal per Acre of Vegetated Grounds",
+    x = "Reduction in Total Water Withdrawal Per Acre of Vegetated Grounds (percentage)",
+    y = "Water Use Score (%)",
+    color = "Physical Risk Quantity"
+  ) +
+  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
+  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
+  theme_minimal() +  
+  theme(
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  )`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic20.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`summary(lm_model3)`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic21.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <p>
+            The last scatter plot graphs a school's OP 21 score against their
+            percentage reduction in potable water use per acre of vegetated
+            grounds. St. Thomas' percentage reduction lags behind some of the
+            schools, but not as many as the previous graphs. The line of best
+            fit has the equation `y= 0.0105x + 0.5045`, indicating that for a 1
+            unit increase in the percentage reduction in potable water use per
+            acre of vegetated grounds, the model predicts an increase of 0.0105
+            in the water use score percent (with both coefficients of the
+            equation being statistically significant). The adjusted r-squared
+            value of 0.4652 indicates a strong positive correlation between the
+            x and y variables such that 46.52% of the variability in the water
+            use score (as a percent) is explained by the model using percentage
+            reduction in potable water use per acre of vegetated grounds as a
+            predictor. This model suggests that St. Thomas stands to gain from
+            investing resources in further reduction of potable water use per
+            square foot of floor area, as other institutions in the two groups
+            were always awarded higher scores with greater reduction (however,
+            it should be noted that schools also received higher scores with
+            less reduction). The slightly smaller slope (0.0105 vs. 0.0123 vs.
+            0.0117) and much lower adjusted r-squared value (0.4652 vs. 0.6706
+            vs. 0.8529) of this equation than the previous equations suggests
+            that more time invested in improving reduction in water use per acre
+            of vegetated grounds will not yield a greater gain in OP 21 score
+            (as a percent) than the other percentage reduction variables.
+          </p>
+          <p>
+            The goal of the final set of visualizations is to see exactly where
+            the University of St. Thomas linesup among the Catholic Benchmark
+            Institutions for the three variables we chose to analyze. Thesethree
+            bar charts show the percent change of water use arranged in numeric
+            order with St. Thomashighlighted in purple, making it easy to see
+            where St. Thomas stands among its peers
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3 <- clean2 |>
+  filter(institution %in% catholic_benchmark_institutions) |>
+  mutate(
+  percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline * 100,
+    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
+  )
+
+ggplot(clean3, aes(
+  y = reorder(institution, percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline),
+  x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline,
+)) +
+  geom_bar(stat = "identity", fill = "blue3") +
+  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Campus User From Baseline Year") +
+  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title.position = "plot",
+    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    
+    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline) |> pull(label_color))
+  )`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic22.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <p>
+            This bar chart shows the percent change in water use per weighted
+            campus user from the baselineyear to the performance year for
+            schools in the Catholic Benchmark Institutions group. Mostschools in
+            this group were able to decrease their water use per weighted campus
+            user with someschools cutting their water use by more than half.
+            Only two schools actually increased their wateruse, having a
+            negative percentage reduction in water use. One of these two schools
+            is the Universityof St.Thomas. They had the second worst change in
+            water use per campus users out of all otherschools in this group.
+            Their change in water use in this category was an increase of about
+            1% fromthe baseline year to the performance year.Although a 1%
+            change is not a dramatic increase, it is certainly the wrong
+            direction to go for aschool that wants to become sustainable. The
+            increase in water use per campus user is the part ofthe reason why
+            the St. Thomas received such a low OP-21 water use score and was put
+            into the“High” Physical Risk Quantity group. If St. Thomas wants to
+            become a sustainable institution andreceive a higher AASHE STARS
+            rating they will need to put more effort towards decreasing wateruse
+            per campus user and increasing their water use score.
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3 <- clean2 |>
+  filter(institution %in% catholic_benchmark_institutions) |>
+  mutate(
+    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
+  )
+
+ggplot(clean3, aes(
+  y = reorder(institution, percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline),
+  x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline,
+)) +
+  geom_bar(stat = "identity", fill = "blue3") +
+  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Vegetated Grounds From Baseline Year") +
+  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title.position = "plot",
+    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    
+    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline) |> pull(label_color))
+  )`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic23.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <p>
+            This bar chart shows the percent change in water use per unit of
+            vegetated grounds from baseline year to performance year. Most
+            institutions from the Catholic Benchmark Institutions group were
+            able to decrease their water use per area of vegetated grounds,
+            though a few had an increase in this category. The University of St.
+            Thomas was able to decrease water use for this metric, but of the
+            institutions that made a decrease, St. Thomas had the smallest
+            change. The seven other institutions that had a decrease were able
+            to reduce water use per unit of vegetated grounds by more than 15%
+            with one institution decreasing by almost 60%. St.Thomas, on the
+            other hand, produced a decrease of only 8.5%. Although the
+            University of St. Thomas was able to decrease water use per unit of
+            vegetated grounds from the baseline year to the performance year,
+            the decrease was not as large as most other schools from the
+            Catholic Benchmark Institutions. This is a category that St. Thomas
+            will surely need to put more focus on if they wish to receive a
+            higher water use score.
+          </p>
+          <pre
+            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
+            style={{ maxWidth: "80vw", margin: "0 auto" }}
+          >
+            <code className="text-sm">{`clean3 <- clean2 |>
+  filter(institution %in% catholic_benchmark_institutions) |>
+  mutate(
+  percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline * 100,
+    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
+  )
+
+ggplot(clean3, aes(
+  y = reorder(institution, percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline),
+  x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline,
+)) +
+  geom_bar(stat = "identity", fill = "blue3") +
+  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Floor Area From Baseline Year") +
+  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title.position = "plot",
+    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    
+    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline) |> pull(label_color))
+  )`}</code>
+          </pre>
+          <div className="mt-6 mb-6">
+            <img
+              src="/screenshots/pic24.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <p>
+            The final bar chart shows the change in water use per unit of floor
+            from the baseline year to the performance year for institutions in
+            the Catholic Benchmark Institutions group. Compared to the ten other
+            institutions here, the University of St. Thomas has the third
+            poorest percentage change for this category. St. Thomas still had a
+            much larger percentage decrease in this category than it had in
+            other categories with a 21.2% reduction in water use per unit of
+            floor area, but the mean percentage reduction in this category for
+            Catholic Benchmark Institutions was substantially higher at 37.9%.
+            The University of St. Thomas was able to decrease their water use
+            per unit of floor area by a fair amount, but they are still falling
+            behind other Catholic Benchmark Institutions in this category. To
+            receive a higher water use score in the future and become a more
+            sustainable institution, St. Thomas should seek to reduce their
+            water use per unit of floor area.
+          </p>
+          <p>
+            The analysis of the AASHE STARS water use data has allowed us to
+            identify, compare, and predict the OP-21 credit score for St. Thomas
+            and other benchmark institutions of interest. By studying the three
+            underlying parts that comprise a school's OP 21 score, a better
+            understanding of how an institution such as St. Thomas can improve
+            their performance was gained. Further examination of three important
+            variables regarding reduction in water use was important for
+            discovering why St. Thomas's OP-21 water use score is so low.
+            Several data visualizations were created from the variables
+            "reduction in water use per weighted campus user from baseline",
+            "reduction in water use per unit of vegetated ground from baseline",
+            and "reduction in water use per unit of floor area from baseline".
+            These visualizations effectively illustrated that St. Thomas
+            consistently lags behind their peers in these three categories. For
+            change in water use compared to the number of weighted campus users,
+            St. Thomas actually saw an increase in water use from the baseline
+            year. The creation of simple linear regression models for the three
+            variables against OP-21 score allowed for understanding of which
+            variables had higher predictive power for an institutions OP-21
+            score. All models had close to the same slope, but the model using
+            water use per weighted campus user had by far the highest adjusted
+            R-squared value, indicating that St. Thomas should put the greatest
+            amount of focus in this category. To receive a higher OP-21 water
+            use score, a higher AASHE STARS rating, and ultimately become a more
+            sustainable institution, St. Thomas should seek to reduce their
+            water use per unit of floor area, their water use per unit of
+            vegetated grounds, and most importantly their water use per number
+            of weighted campus users.
           </p>
 
           {/* Code block */}

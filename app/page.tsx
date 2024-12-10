@@ -26,9 +26,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div
-      className={`grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] ${background}`}
-    >
+    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)] bg-gradient-to-r from-blue-50 via-green-50 to-pink-200 animate-gradient-bg">
       <main className="flex flex-col gap-16 row-start-2 items-center sm:items-start">
         <section className="w-full flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="flex-1 text-center sm:text-left">
