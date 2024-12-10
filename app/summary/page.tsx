@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 export default function Summary() {
   return (
@@ -6,7 +7,7 @@ export default function Summary() {
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Part 2: Summary Statisic
+          Part 3: Summary Statisic
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
           Learn how we processed our data
@@ -184,6 +185,12 @@ export default function Summary() {
 
           {/* Code block */}
         </div>
+        <Link
+          href="/advanced"
+          className="mt-4 rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+        >
+          Phase 2: Advanced Visualizations
+        </Link>
       </div>
     </div>
   );

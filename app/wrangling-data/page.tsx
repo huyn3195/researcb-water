@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import Link from "next/link";
 
 export default function WranglingData() {
   return (
@@ -237,6 +238,12 @@ as.numeric((clean1[[59]]/0.3)*((clean1[[50]]-clean1[[49]])/clean1[[50]]))), clea
             </code>
           </pre>
         </div>
+        <Link
+          href="/visualizations"
+          className="mt-4 rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+        >
+          Phase 1: Basic Visualizations
+        </Link>
       </div>
     </div>
   );
