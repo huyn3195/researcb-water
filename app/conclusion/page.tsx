@@ -14,23 +14,6 @@ const ConclusionPage = () => {
         </h1>
         <div className="space-y-6 text-gray-800 text-lg">
           <p>
-            The final bar chart shows the change in water use per unit of floor
-            from the baseline year to the performance year for institutions in
-            the Catholic Benchmark Institutions group. Compared to the ten other
-            institutions here, the University of St. Thomas has the third
-            poorest percentage change for this category. St. Thomas still had a
-            much larger percentage decrease in this category than it had in
-            other categories with a 21.2% reduction in water use per unit of
-            floor area, but the mean percentage reduction in this category for
-            Catholic Benchmark Institutions was substantially higher at 37.9%.
-            The University of St. Thomas was able to decrease their water use
-            per unit of floor area by a fair amount, but they are still falling
-            behind other Catholic Benchmark Institutions in this category. To
-            receive a higher water use score in the future and become a more
-            sustainable institution, St. Thomas should seek to reduce their
-            water use per unit of floor area.
-          </p>
-          <p>
             The analysis of the AASHE STARS water use data has allowed us to
             identify, compare, and predict the OP-21 credit score for St. Thomas
             and other benchmark institutions of interest. By studying the three

@@ -702,12 +702,30 @@ ggplot(clean3, aes(
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
+          <p>
+            The final bar chart shows the change in water use per unit of floor
+            from the baseline year to the performance year for institutions in
+            the Catholic Benchmark Institutions group. Compared to the ten other
+            institutions here, the University of St. Thomas has the third
+            poorest percentage change for this category. St. Thomas still had a
+            much larger percentage decrease in this category than it had in
+            other categories with a 21.2% reduction in water use per unit of
+            floor area, but the mean percentage reduction in this category for
+            Catholic Benchmark Institutions was substantially higher at 37.9%.
+            The University of St. Thomas was able to decrease their water use
+            per unit of floor area by a fair amount, but they are still falling
+            behind other Catholic Benchmark Institutions in this category. To
+            receive a higher water use score in the future and become a more
+            sustainable institution, St. Thomas should seek to reduce their
+            water use per unit of floor area.
+          </p>
           <Link
             href="/conclusion"
-            className="mt-4 rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+            className="mt-16 rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
           >
             Conclusion
           </Link>
+
           {/* Code block */}
 
           {/* Code block */}
