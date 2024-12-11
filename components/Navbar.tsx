@@ -13,26 +13,26 @@ export default function Navbar() {
             href="/wrangling-data"
             className="hover:text-gray-200 transition-colors"
           >
-            Part 1: Wrangling Data
+           Wrangling Data
           </Link>
           <Link
             href="/visualizations"
             className="hover:text-gray-200 transition-colors"
           >
-            Part 2: Visualizations
+           Visualizations
           </Link>
           <Link
             href="/summary"
             className="hover:text-gray-200 transition-colors"
           >
-            Part 3: Summary Statistics
+        Summary Statistics
           </Link>
 
           <Link
             href="/advanced"
             className="hover:text-gray-200 transition-colors"
           >
-            Part 4: Advanced Visualizations
+           Advanced Visualizations
           </Link>
           <Link
             href="/conclusion"

@@ -1,7 +1,345 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import CodeDropdown from "@/components/CodeDropdown";
 
 export default function Advanced() {
+  const code1 = `universities_of_interest <- c(
+    "Creighton University",
+    "Gonzaga University",
+    "Loyola University Chicago",
+    "Loyola Marymount University",
+    "Santa Clara University",
+    "Seattle University",
+    "University of Dayton",
+    "University of Notre Dame",
+    "University of San Diego",
+    "Villanova University",
+    "University of St. Thomas"
+  )
+  
+  catholic_unis <- clean1 %>%
+    filter(institution %in% universities_of_interest)`;
+  const code2 = `ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, color = risk_group)) +
+    geom_density(size = 1.5) +
+    scale_color_manual(
+      values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
+      breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
+      labels = c('Low and Low to Medium', 'High and Extremely High')
+    ) +
+    labs(
+      color = "Physical Risk Group",
+      x = "Reduction in Potable Water Use per Weighted Campus User (%)",
+      y = "Density",
+      title = "Reduction in Potable Water Use per Weighted Campus User by Physical 
+      Risk Group"
+    ) +
+    scale_x_continuous(labels = scales::percent) +
+    geom_vline(xintercept = -0.010209659, linetype = "dashed", color = "red", size = 1) +
+    annotate("text", x = -0.010209659, y = 0.5, label = "St. Thomas", 
+             color = "purple", vjust = -0.5, hjust = 1.1, size = 3) +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+      axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+      axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+      
+      legend.position = "bottom",
+      
+      legend.text = element_text(size = 8, face = "bold"),
+      legend.title = element_text(size = 10, face = "bold"),
+      
+      legend.title.align = 0.5
+    )`;
+  const code3 = `clean2 <- clean2 |>
+    mutate(
+    percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = ((potable_water_use_per_unit_of_floor_area_baseline_year - potable_water_use_per_unit_of_floor_area_performance_year)/potable_water_use_per_unit_of_floor_area_baseline_year))
+  
+  ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, color = risk_group)) +
+    geom_density(size = 1.5) +
+    scale_color_manual(
+      values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
+      breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
+      labels = c('Low and Low to Medium', 'High and Extremely High')
+    ) +
+    labs(
+      color = "Physical Risk Group",
+      x = "Reduction in Potable Water Use per Unit of Floor Area (%)",
+      y = "Density",
+      title = "Reduction in Potable Water Use per Unit of Floor Area by Physical 
+      Risk Group"
+    ) +
+    scale_x_continuous(labels = scales::percent) +
+    geom_vline(xintercept = 0.2120922, linetype = "dashed", color = "red", size = 1) +
+    annotate("text", x = 0.2120922, y = 0.5, label = "St. Thomas", 
+             color = "purple", vjust = -0.5, hjust = -.15, size = 3) +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+      axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+      axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+      
+      legend.position = "bottom",
+      
+      legend.text = element_text(size = 8, face = "bold"),
+      legend.title = element_text(size = 10, face = "bold"),
+      
+      legend.title.align = 0.5
+    )`;
+  const code4 = `ggplot(data = clean2, aes(x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, color = risk_group)) +
+    geom_density(size = 1.5) +
+    scale_color_manual(
+      values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
+      breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
+      labels = c('Low and Low to Medium', 'High and Extremely High')
+    ) +
+    labs(
+      color = "Physical Risk Group",
+      x = "Reduction in Total Water Withdrawal per Unit of Vegetated Grounds (%)",
+      y = "Density",
+      title = "Reduction in Total Water Withdrawal per Unit of Vegetated Grounds by Physical Risk Group"
+    ) +
+    scale_x_continuous(labels = scales::percent_format(scale = 1)) +
+    geom_vline(xintercept = 8.473044, linetype = "dashed", color = "red", size = 1) +
+    annotate("text", x = 8.473044, y = 0.0005, label = "St. Thomas", 
+             color = "purple", vjust = -0.5, hjust = -.15, size = 3) +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+      axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+      axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+      
+      legend.position = "bottom",
+      
+      legend.text = element_text(size = 8, face = "bold"),
+      legend.title = element_text(size = 10, face = "bold"),
+      
+      legend.title.align = 0.5
+    )`;
+  const code5 = `clean3 <- clean2 |>
+    mutate(
+      institution = case_when(
+        institution == "Creighton University" ~ "Creighton",
+        institution == "Gonzaga University" ~ "Gonzaga",
+        institution == "Loyola University Chicago" ~ "Loyola Chicago",
+        institution == "Loyola Marymount University" ~ "Loyola Marymount",
+        institution == "Santa Clara University" ~ "Santa Clara",
+        institution == "Seattle University" ~ "Seattle",
+        institution == "University of Dayton" ~ "Dayton",
+        institution == "University of Notre Dame" ~ "Notre Dame",
+        institution == "University of San Diego" ~ "San Diego",
+        institution == "Villanova University" ~ "Villanova",
+        institution == "University of St. Thomas" ~ "St. Thomas",
+        institution == "Bemidji State University" ~ "Bemidji",
+        institution == "Carleton College" ~ "Carleton MN",
+        institution == "College of Saint Benedict" ~ "St. Ben's",
+        institution == "St. John’s University" ~ "St. John's",
+        institution == "Concordia College - Moorhead" ~ "Concordia Moorhead",
+        institution == "Macalester College" ~ "Macalester",
+        institution == "Winona State University" ~ "Winona",
+        institution == "University of Minnesota, Twin Cities" ~ "UMN",
+        institution == "University of Minnesota, Morris" ~ "UMN-Morris",
+        institution == "University of Minnesota, Duluth" ~ "UMD",
+        institution == "Augsburg University" ~ "Augsburg",
+        institution == "Concordia in St. Paul" ~ "Concordia St. Paul",
+        institution == "Hamline University" ~ "Hamline",
+        institution == "St. Kate’s University" ~ "St. Kate's",
+        institution == "St. Olaf College" ~ "St. Olaf",
+        TRUE ~ institution,
+      ),
+      percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline*100,
+      percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline * 100)`;
+  const code6 = `library(ggrepel)
+
+      lm_model1 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, data = clean3)
+      
+      coefficients <- coef(lm_model1)
+      intercept <- coefficients[1]
+      slope <- coefficients[2]
+      
+      cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`;
+  const code7 = `clean3 |>
+      ggplot(aes(
+        y = op_21_percent,
+        x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline
+      )) +
+      geom_point(aes(color = risk_group)) +
+      geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
+      geom_text_repel(aes(
+        label = institution,
+        fontface = ifelse(institution == "St. Thomas", "bold", "plain")
+      ),
+      size = 3,
+      color = ifelse(clean3$institution == "St. Thomas", "purple", "gray20")) +
+      labs(
+        title = "Water Use Score by Reduction in Potable Water Use per Person",
+        x = "Reduction in Potable Water Use Per Person (percentage)",
+        y = "Water Use Score (%)",
+        color = "Physical Risk Quantity"
+      ) +
+      scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
+      labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+        axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+        axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+        
+        legend.position = "bottom",
+        
+        legend.text = element_text(size = 8, face = "bold"),
+        legend.title = element_text(size = 10, face = "bold"),
+        
+        legend.title.align = 0.5
+      )`;
+  const code8 = `summary(lm_model1)`;
+  const code9 = `clean3_nooutliers <- clean3
+
+      lm_model2 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, data = clean3_nooutliers)
+      
+      coefficients <- coef(lm_model2)
+      intercept <- coefficients[1]
+      slope <- coefficients[2]
+      
+      cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`;
+  const code10 = `clean3_nooutliers |>
+      ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline)) +
+        geom_point(aes(color = risk_group)) +
+        geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
+        geom_text_repel(aes(
+          label = institution,
+          fontface = ifelse(institution == "St. Thomas", "bold", "plain")
+        ),
+        size = 3,
+        color = ifelse(clean3_nooutliers$institution == "St. Thomas", "purple", "gray20")) +
+        labs(
+          title = "Water Use Score by Reduction in Potable Water Use per Square Foot of Floor Area",
+          x = "Reduction in Potable Water Use Per Square Foot of Floor Area (percentage)",
+          y = "Water Use Score (%)",
+          color = "Physical Risk Quantity"
+        ) +
+        scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
+        labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
+        theme_minimal() + 
+        theme(
+          plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+          axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+          axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+          
+          legend.position = "bottom",
+          
+          legend.text = element_text(size = 8, face = "bold"),
+          legend.title = element_text(size = 10, face = "bold"),
+          
+          legend.title.align = 0.5
+        )  `;
+  const code11 = `summary(lm_model2)`;
+  const code12 = `clean3_nooutliers <- clean3 |>
+  filter(institution != "UMN")
+
+lm_model3 <- lm(op_21_percent ~ percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, data = clean3_nooutliers)
+
+coefficients <- coef(lm_model3)
+intercept <- coefficients[1]
+slope <- coefficients[2]
+
+cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`;
+  const code13 = `clean3_nooutliers |>
+ggplot(aes(y=op_21_percent, x=percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline))  +
+  geom_point(aes(color = risk_group)) +
+  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
+  geom_text_repel(aes(
+    label = institution,
+    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
+  ),
+  size = 3,
+  color = ifelse(clean3_nooutliers$institution == "St. Thomas", "purple", "gray20")) +
+  labs(
+    title = "Water Use Score by Reduction in Total Water Withdrawal per Acre of Vegetated Grounds",
+    x = "Reduction in Total Water Withdrawal Per Acre of Vegetated Grounds (percentage)",
+    y = "Water Use Score (%)",
+    color = "Physical Risk Quantity"
+  ) +
+  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
+  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
+  theme_minimal() +  
+  theme(
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+    
+    legend.position = "bottom",
+    
+    legend.text = element_text(size = 8, face = "bold"),
+    legend.title = element_text(size = 10, face = "bold"),
+    
+    legend.title.align = 0.5
+  )`;
+  const code14 = `summary(lm_model3)`;
+  const code15 = `clean3 <- clean2 |>
+  filter(institution %in% catholic_benchmark_institutions) |>
+  mutate(
+  percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline * 100,
+    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
+  )
+
+ggplot(clean3, aes(
+  y = reorder(institution, percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline),
+  x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline,
+)) +
+  geom_bar(stat = "identity", fill = "blue3") +
+  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Campus User From Baseline Year") +
+  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title.position = "plot",
+    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    
+    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline) |> pull(label_color))
+  )`;
+  const code16 = `clean3 <- clean2 |>
+  filter(institution %in% catholic_benchmark_institutions) |>
+  mutate(
+    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
+  )
+
+ggplot(clean3, aes(
+  y = reorder(institution, percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline),
+  x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline,
+)) +
+  geom_bar(stat = "identity", fill = "blue3") +
+  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Vegetated Grounds From Baseline Year") +
+  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title.position = "plot",
+    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    
+    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline) |> pull(label_color))
+  )`;
+  const code17 = `clean3 <- clean2 |>
+  filter(institution %in% catholic_benchmark_institutions) |>
+  mutate(
+  percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline * 100,
+    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
+  )
+
+ggplot(clean3, aes(
+  y = reorder(institution, percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline),
+  x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline,
+)) +
+  geom_bar(stat = "identity", fill = "blue3") +
+  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Floor Area From Baseline Year") +
+  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
+  theme_minimal() +
+  theme(
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title.position = "plot",
+    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    
+    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline) |> pull(label_color))
+  )`;
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-green-50 to-green-200">
       <Navbar />
@@ -19,57 +357,8 @@ export default function Advanced() {
 
         <div className="mt-8 text-lg text-gray-700">
           {/* Code block */}
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-            <code className="text-sm">{`universities_of_interest <- c(
-  "Creighton University",
-  "Gonzaga University",
-  "Loyola University Chicago",
-  "Loyola Marymount University",
-  "Santa Clara University",
-  "Seattle University",
-  "University of Dayton",
-  "University of Notre Dame",
-  "University of San Diego",
-  "Villanova University",
-  "University of St. Thomas"
-)
-
-catholic_unis <- clean1 %>%
-  filter(institution %in% universities_of_interest)`}</code>
-          </pre>
-
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-            <code className="text-sm">{`ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, color = risk_group)) +
-  geom_density(size = 1.5) +
-  scale_color_manual(
-    values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
-    breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
-    labels = c('Low and Low to Medium', 'High and Extremely High')
-  ) +
-  labs(
-    color = "Physical Risk Group",
-    x = "Reduction in Potable Water Use per Weighted Campus User (%)",
-    y = "Density",
-    title = "Reduction in Potable Water Use per Weighted Campus User by Physical 
-    Risk Group"
-  ) +
-  scale_x_continuous(labels = scales::percent) +
-  geom_vline(xintercept = -0.010209659, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = -0.010209659, y = 0.5, label = "St. Thomas", 
-           color = "purple", vjust = -0.5, hjust = 1.1, size = 3) +
-  theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    
-    legend.position = "bottom",
-    
-    legend.text = element_text(size = 8, face = "bold"),
-    legend.title = element_text(size = 10, face = "bold"),
-    
-    legend.title.align = 0.5
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code1} />
+          <CodeDropdown code={code2} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic11.png" // Absolute path to the screenshot
@@ -93,45 +382,7 @@ catholic_unis <- clean1 %>%
             weighted campus user since their baseline year. This is something
             that we could focus on improving in the coming years.
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean2 <- clean2 |>
-  mutate(
-  percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = ((potable_water_use_per_unit_of_floor_area_baseline_year - potable_water_use_per_unit_of_floor_area_performance_year)/potable_water_use_per_unit_of_floor_area_baseline_year))
-
-ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, color = risk_group)) +
-  geom_density(size = 1.5) +
-  scale_color_manual(
-    values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
-    breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
-    labels = c('Low and Low to Medium', 'High and Extremely High')
-  ) +
-  labs(
-    color = "Physical Risk Group",
-    x = "Reduction in Potable Water Use per Unit of Floor Area (%)",
-    y = "Density",
-    title = "Reduction in Potable Water Use per Unit of Floor Area by Physical 
-    Risk Group"
-  ) +
-  scale_x_continuous(labels = scales::percent) +
-  geom_vline(xintercept = 0.2120922, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 0.2120922, y = 0.5, label = "St. Thomas", 
-           color = "purple", vjust = -0.5, hjust = -.15, size = 3) +
-  theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    
-    legend.position = "bottom",
-    
-    legend.text = element_text(size = 8, face = "bold"),
-    legend.title = element_text(size = 10, face = "bold"),
-    
-    legend.title.align = 0.5
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code3} />
 
           <div className="mt-6 mb-6">
             <img
@@ -158,40 +409,7 @@ ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit
             is a bit behind other schools in their group, so this is something
             that could be improved in the future, but it is still a positive.
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`ggplot(data = clean2, aes(x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, color = risk_group)) +
-  geom_density(size = 1.5) +
-  scale_color_manual(
-    values = c('1 (Low and Low to Medium)' = 'darkgreen', '3 (High and Extremely High)' = 'red'),
-    breaks = c('1 (Low and Low to Medium)', '3 (High and Extremely High)'), 
-    labels = c('Low and Low to Medium', 'High and Extremely High')
-  ) +
-  labs(
-    color = "Physical Risk Group",
-    x = "Reduction in Total Water Withdrawal per Unit of Vegetated Grounds (%)",
-    y = "Density",
-    title = "Reduction in Total Water Withdrawal per Unit of Vegetated Grounds by Physical Risk Group"
-  ) +
-  scale_x_continuous(labels = scales::percent_format(scale = 1)) +
-  geom_vline(xintercept = 8.473044, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = 8.473044, y = 0.0005, label = "St. Thomas", 
-           color = "purple", vjust = -0.5, hjust = -.15, size = 3) +
-  theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    
-    legend.position = "bottom",
-    
-    legend.text = element_text(size = 8, face = "bold"),
-    legend.title = element_text(size = 10, face = "bold"),
-    
-    legend.title.align = 0.5
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code4} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic13.png" // Absolute path to the screenshot
@@ -223,99 +441,11 @@ ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit
             visual and quantifiable means, respectively. To begin, institution
             names were shortened to create more space on the charts.
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3 <- clean2 |>
-  mutate(
-    institution = case_when(
-      institution == "Creighton University" ~ "Creighton",
-      institution == "Gonzaga University" ~ "Gonzaga",
-      institution == "Loyola University Chicago" ~ "Loyola Chicago",
-      institution == "Loyola Marymount University" ~ "Loyola Marymount",
-      institution == "Santa Clara University" ~ "Santa Clara",
-      institution == "Seattle University" ~ "Seattle",
-      institution == "University of Dayton" ~ "Dayton",
-      institution == "University of Notre Dame" ~ "Notre Dame",
-      institution == "University of San Diego" ~ "San Diego",
-      institution == "Villanova University" ~ "Villanova",
-      institution == "University of St. Thomas" ~ "St. Thomas",
-      institution == "Bemidji State University" ~ "Bemidji",
-      institution == "Carleton College" ~ "Carleton MN",
-      institution == "College of Saint Benedict" ~ "St. Ben's",
-      institution == "St. John’s University" ~ "St. John's",
-      institution == "Concordia College - Moorhead" ~ "Concordia Moorhead",
-      institution == "Macalester College" ~ "Macalester",
-      institution == "Winona State University" ~ "Winona",
-      institution == "University of Minnesota, Twin Cities" ~ "UMN",
-      institution == "University of Minnesota, Morris" ~ "UMN-Morris",
-      institution == "University of Minnesota, Duluth" ~ "UMD",
-      institution == "Augsburg University" ~ "Augsburg",
-      institution == "Concordia in St. Paul" ~ "Concordia St. Paul",
-      institution == "Hamline University" ~ "Hamline",
-      institution == "St. Kate’s University" ~ "St. Kate's",
-      institution == "St. Olaf College" ~ "St. Olaf",
-      TRUE ~ institution,
-    ),
-    percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline*100,
-    percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline * 100)`}</code>
-          </pre>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`library(ggrepel)
-
-lm_model1 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline, data = clean3)
-
-coefficients <- coef(lm_model1)
-intercept <- coefficients[1]
-slope <- coefficients[2]
-
-cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`}</code>
-          </pre>
+          <CodeDropdown code={code5} />
+          <CodeDropdown code={code6} />
 
           <p>Equation of the line: y = 0.37 + 0.01 * x</p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3 |>
-  ggplot(aes(
-    y = op_21_percent,
-    x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline
-  )) +
-  geom_point(aes(color = risk_group)) +
-  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
-  geom_text_repel(aes(
-    label = institution,
-    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
-  ),
-  size = 3,
-  color = ifelse(clean3$institution == "St. Thomas", "purple", "gray20")) +
-  labs(
-    title = "Water Use Score by Reduction in Potable Water Use per Person",
-    x = "Reduction in Potable Water Use Per Person (percentage)",
-    y = "Water Use Score (%)",
-    color = "Physical Risk Quantity"
-  ) +
-  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
-  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    
-    legend.position = "bottom",
-    
-    legend.text = element_text(size = 8, face = "bold"),
-    legend.title = element_text(size = 10, face = "bold"),
-    
-    legend.title.align = 0.5
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code7} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic14.png" // Absolute path to the screenshot
@@ -323,12 +453,7 @@ cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`summary(lm_model1)`}</code>
-          </pre>
+          <CodeDropdown code={code8} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic15.png" // Absolute path to the screenshot
@@ -356,57 +481,9 @@ cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x
             institutions in the two groups were awarded higher scores with
             greater reduction
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3_nooutliers <- clean3
-
-lm_model2 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, data = clean3_nooutliers)
-
-coefficients <- coef(lm_model2)
-intercept <- coefficients[1]
-slope <- coefficients[2]
-
-cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`}</code>
-          </pre>
+          <CodeDropdown code={code9} />
           <p>Equation of the line: y = 0.22 + 0.01 * x</p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3_nooutliers |>
-ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline)) +
-  geom_point(aes(color = risk_group)) +
-  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
-  geom_text_repel(aes(
-    label = institution,
-    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
-  ),
-  size = 3,
-  color = ifelse(clean3_nooutliers$institution == "St. Thomas", "purple", "gray20")) +
-  labs(
-    title = "Water Use Score by Reduction in Potable Water Use per Square Foot of Floor Area",
-    x = "Reduction in Potable Water Use Per Square Foot of Floor Area (percentage)",
-    y = "Water Use Score (%)",
-    color = "Physical Risk Quantity"
-  ) +
-  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
-  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
-  theme_minimal() + 
-  theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    
-    legend.position = "bottom",
-    
-    legend.text = element_text(size = 8, face = "bold"),
-    legend.title = element_text(size = 10, face = "bold"),
-    
-    legend.title.align = 0.5
-  )  `}</code>
-          </pre>
+          <CodeDropdown code={code10} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic17.png" // Absolute path to the screenshot
@@ -414,12 +491,7 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`summary(lm_model2)`}</code>
-          </pre>
+          <CodeDropdown code={code11} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic18.png" // Absolute path to the screenshot
@@ -456,58 +528,9 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit
             areawill not yield a greater gain in OP 21 score (as a percent) than
             time invested in improving reductionin water use per person.
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3_nooutliers <- clean3 |>
-  filter(institution != "UMN")
-
-lm_model3 <- lm(op_21_percent ~ percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, data = clean3_nooutliers)
-
-coefficients <- coef(lm_model3)
-intercept <- coefficients[1]
-slope <- coefficients[2]
-
-cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x\\n")`}</code>
-          </pre>
+          <CodeDropdown code={code12} />
           <p>Equation of the line: y = 0.5 + 0.01 * x</p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3_nooutliers |>
-ggplot(aes(y=op_21_percent, x=percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline))  +
-  geom_point(aes(color = risk_group)) +
-  geom_smooth(method = "lm", se = FALSE, color = scales::alpha("black", 0.4), linetype = "dashed") +  
-  geom_text_repel(aes(
-    label = institution,
-    fontface = ifelse(institution == "St. Thomas", "bold", "plain")
-  ),
-  size = 3,
-  color = ifelse(clean3_nooutliers$institution == "St. Thomas", "purple", "gray20")) +
-  labs(
-    title = "Water Use Score by Reduction in Total Water Withdrawal per Acre of Vegetated Grounds",
-    x = "Reduction in Total Water Withdrawal Per Acre of Vegetated Grounds (percentage)",
-    y = "Water Use Score (%)",
-    color = "Physical Risk Quantity"
-  ) +
-  scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
-  labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
-  theme_minimal() +  
-  theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
-    
-    legend.position = "bottom",
-    
-    legend.text = element_text(size = 8, face = "bold"),
-    legend.title = element_text(size = 10, face = "bold"),
-    
-    legend.title.align = 0.5
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code13} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic20.png" // Absolute path to the screenshot
@@ -515,12 +538,7 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_total_water_withdrawal_per
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`summary(lm_model3)`}</code>
-          </pre>
+          <CodeDropdown code={code14} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic21.png" // Absolute path to the screenshot
@@ -566,34 +584,7 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_total_water_withdrawal_per
             order with St. Thomashighlighted in purple, making it easy to see
             where St. Thomas stands among its peers
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3 <- clean2 |>
-  filter(institution %in% catholic_benchmark_institutions) |>
-  mutate(
-  percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline * 100,
-    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
-  )
-
-ggplot(clean3, aes(
-  y = reorder(institution, percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline),
-  x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline,
-)) +
-  geom_bar(stat = "identity", fill = "blue3") +
-  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Campus User From Baseline Year") +
-  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
-  theme_minimal() +
-  theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    plot.title.position = "plot",
-    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
-    
-    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline) |> pull(label_color))
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code15} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic22.png" // Absolute path to the screenshot
@@ -622,33 +613,7 @@ ggplot(clean3, aes(
             rating they will need to put more effort towards decreasing wateruse
             per campus user and increasing their water use score.
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3 <- clean2 |>
-  filter(institution %in% catholic_benchmark_institutions) |>
-  mutate(
-    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
-  )
-
-ggplot(clean3, aes(
-  y = reorder(institution, percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline),
-  x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline,
-)) +
-  geom_bar(stat = "identity", fill = "blue3") +
-  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Vegetated Grounds From Baseline Year") +
-  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
-  theme_minimal() +
-  theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    plot.title.position = "plot",
-    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
-    
-    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline) |> pull(label_color))
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code16} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic23.png" // Absolute path to the screenshot
@@ -675,34 +640,7 @@ ggplot(clean3, aes(
             will surely need to put more focus on if they wish to receive a
             higher water use score.
           </p>
-          <pre
-            className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
-            style={{ maxWidth: "80vw", margin: "0 auto" }}
-          >
-            <code className="text-sm">{`clean3 <- clean2 |>
-  filter(institution %in% catholic_benchmark_institutions) |>
-  mutate(
-  percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline * 100,
-    label_color = ifelse(institution == "University of St. Thomas", "purple", "gray30")
-  )
-
-ggplot(clean3, aes(
-  y = reorder(institution, percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline),
-  x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline,
-)) +
-  geom_bar(stat = "identity", fill = "blue3") +
-  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Floor Area From Baseline Year") +
-  scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
-  theme_minimal() +
-  theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-    plot.title.position = "plot",
-    axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
-    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
-    
-    axis.text.y = element_text(color = clean3 |> arrange(percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline) |> pull(label_color))
-  )`}</code>
-          </pre>
+          <CodeDropdown code={code17} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic24.png" // Absolute path to the screenshot

@@ -1,13 +1,88 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import CodeDropdown from "@/components/CodeDropdown";
 
 export default function Summary() {
+  const code1 = `clean1 |>
+  group_by(risk_group) |>
+  summarize(
+    min = min(op21_score, na.rm = TRUE),
+    Q1 = quantile(op21_score, probs = 0.25, na.rm = TRUE),
+    median = median(op21_score, na.rm = TRUE),
+    Q3 = quantile(op21_score, probs = 0.75, na.rm = TRUE),
+    max = max(op21_score, na.rm = TRUE),
+    mean = mean(op21_score, na.rm = TRUE),
+    sd = sd(op21_score, na.rm = TRUE),
+    IQR = IQR(op21_score, na.rm = TRUE),
+    count = n()
+  ) |>
+  slice(-4)`;
+  const code2 = `clean1 |>
+  group_by(risk_group) |>
+  summarize(
+    min = min(p1_pts, na.rm = TRUE),
+    Q1 = quantile(p1_pts, probs = 0.25, na.rm = TRUE),
+    median = median(p1_pts, na.rm = TRUE),
+    Q3 = quantile(p1_pts, probs = 0.75, na.rm = TRUE),
+    max = max(p1_pts, na.rm = TRUE),
+    mean = mean(p1_pts, na.rm = TRUE),
+    sd = sd(p1_pts, na.rm = TRUE),
+    IQR = IQR(p1_pts, na.rm = TRUE),
+    count = n()
+  ) |>
+  slice(-4)`;
+  const code3 = `clean1 |>
+  group_by(risk_group) |>
+  summarize(
+    min = min(p2_pts, na.rm = TRUE),
+    Q1 = quantile(p2_pts, probs = 0.25, na.rm = TRUE),
+    median = median(p2_pts, na.rm = TRUE),
+    Q3 = quantile(p2_pts, probs = 0.75, na.rm = TRUE),
+    max = max(p2_pts, na.rm = TRUE),
+    mean = mean(p2_pts, na.rm = TRUE),
+    sd = sd(p2_pts, na.rm = TRUE),
+    IQR = IQR(p2_pts, na.rm = TRUE),
+    count = n()
+  ) |>
+  slice(-4)`;
+  const code4 = `clean1 |>
+  group_by(risk_group) |>
+  summarize(
+    min = min(p3_pts, na.rm = TRUE),
+    Q1 = quantile(p3_pts, probs = 0.25, na.rm = TRUE),
+    median = median(p3_pts, na.rm = TRUE),
+    Q3 = quantile(p3_pts, probs = 0.75, na.rm = TRUE),
+    max = max(p3_pts, na.rm = TRUE),
+    mean = mean(p3_pts, na.rm = TRUE),
+    sd = sd(p3_pts, na.rm = TRUE),
+    IQR = IQR(p3_pts, na.rm = TRUE),
+    count = n()
+  ) |>
+  slice(-4)`;
+  const code5 = `clean1 |>
+  group_by(risk_group) |>
+  summarize(
+    min = min(total_water_withdrawal_performance_year, na.rm = TRUE),
+    Q1 = quantile(total_water_withdrawal_performance_year, probs = 0.25, na.rm = TRUE),
+    median = median(total_water_withdrawal_performance_year, na.rm = TRUE),
+    Q3 = quantile(total_water_withdrawal_performance_year, probs = 0.75, na.rm = TRUE),
+    max = max(total_water_withdrawal_performance_year, na.rm = TRUE),
+    mean = mean(total_water_withdrawal_performance_year, na.rm = TRUE),
+    sd = sd(total_water_withdrawal_performance_year, na.rm = TRUE),
+    IQR = IQR(total_water_withdrawal_performance_year, na.rm = TRUE),
+    count = n()
+  ) |>
+  slice(-4)`;
+  const code6 = `clean1 <- clean1 |>
+  mutate(percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = (clean1[[36]]-clean1[[35]])/clean1[[36]],
+         percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = ((clean1[[50]]-clean1[[49]])/clean1[[50]])
+         )`;
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-r from-green-50 to-green-200">
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Part 3: Summary Statisic
+          Summary Statistic
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
           Learn how we processed our data
@@ -35,22 +110,7 @@ export default function Summary() {
           </p>
 
           {/* Code block */}
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
-            <code className="text-sm">{`clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(op21_score, na.rm = TRUE),
-    Q1 = quantile(op21_score, probs = 0.25, na.rm = TRUE),
-    median = median(op21_score, na.rm = TRUE),
-    Q3 = quantile(op21_score, probs = 0.75, na.rm = TRUE),
-    max = max(op21_score, na.rm = TRUE),
-    mean = mean(op21_score, na.rm = TRUE),
-    sd = sd(op21_score, na.rm = TRUE),
-    IQR = IQR(op21_score, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`}</code>
-          </pre>
+          <CodeDropdown code={code1} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic1.png" // Absolute path to the screenshot
@@ -58,22 +118,7 @@ export default function Summary() {
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(p1_pts, na.rm = TRUE),
-    Q1 = quantile(p1_pts, probs = 0.25, na.rm = TRUE),
-    median = median(p1_pts, na.rm = TRUE),
-    Q3 = quantile(p1_pts, probs = 0.75, na.rm = TRUE),
-    max = max(p1_pts, na.rm = TRUE),
-    mean = mean(p1_pts, na.rm = TRUE),
-    sd = sd(p1_pts, na.rm = TRUE),
-    IQR = IQR(p1_pts, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`}</code>
-          </pre>
+          <CodeDropdown code={code2} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic2.png" // Absolute path to the screenshot
@@ -81,22 +126,7 @@ export default function Summary() {
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(p2_pts, na.rm = TRUE),
-    Q1 = quantile(p2_pts, probs = 0.25, na.rm = TRUE),
-    median = median(p2_pts, na.rm = TRUE),
-    Q3 = quantile(p2_pts, probs = 0.75, na.rm = TRUE),
-    max = max(p2_pts, na.rm = TRUE),
-    mean = mean(p2_pts, na.rm = TRUE),
-    sd = sd(p2_pts, na.rm = TRUE),
-    IQR = IQR(p2_pts, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`}</code>
-          </pre>
+          <CodeDropdown code={code3} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic3.png" // Absolute path to the screenshot
@@ -104,22 +134,7 @@ export default function Summary() {
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(p3_pts, na.rm = TRUE),
-    Q1 = quantile(p3_pts, probs = 0.25, na.rm = TRUE),
-    median = median(p3_pts, na.rm = TRUE),
-    Q3 = quantile(p3_pts, probs = 0.75, na.rm = TRUE),
-    max = max(p3_pts, na.rm = TRUE),
-    mean = mean(p3_pts, na.rm = TRUE),
-    sd = sd(p3_pts, na.rm = TRUE),
-    IQR = IQR(p3_pts, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`}</code>
-          </pre>
+          <CodeDropdown code={code4} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic4.png" // Absolute path to the screenshot
@@ -141,22 +156,7 @@ export default function Summary() {
             metric to compare variation betweenthe risk groups for further
             analysis
           </p>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(total_water_withdrawal_performance_year, na.rm = TRUE),
-    Q1 = quantile(total_water_withdrawal_performance_year, probs = 0.25, na.rm = TRUE),
-    median = median(total_water_withdrawal_performance_year, na.rm = TRUE),
-    Q3 = quantile(total_water_withdrawal_performance_year, probs = 0.75, na.rm = TRUE),
-    max = max(total_water_withdrawal_performance_year, na.rm = TRUE),
-    mean = mean(total_water_withdrawal_performance_year, na.rm = TRUE),
-    sd = sd(total_water_withdrawal_performance_year, na.rm = TRUE),
-    IQR = IQR(total_water_withdrawal_performance_year, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`}</code>
-          </pre>
+          <CodeDropdown code={code5} />
           <div className="mt-6 mb-6">
             <img
               src="/screenshots/pic5.png" // Absolute path to the screenshot
@@ -172,13 +172,7 @@ export default function Summary() {
             values for the percentage reduction despite having OP 21 credit
             scores, so these percentages were recalculated.
           </p>
-          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6">
-            <code className="text-sm">{`clean1 <- clean1 |>
-  mutate(percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = (clean1[[36]]-clean1[[35]])/clean1[[36]],
-         percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = ((clean1[[50]]-clean1[[49]])/clean1[[50]])
-         )`}</code>
-          </pre>
-
+          <CodeDropdown code={code6} />
           {/* Code block */}
 
           {/* Code block */}
