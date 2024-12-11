@@ -360,8 +360,7 @@ cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x
             className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
             style={{ maxWidth: "80vw", margin: "0 auto" }}
           >
-            <code className="text-sm">{`clean3_nooutliers <- clean3 |>
-  filter(institution != "UMN")
+            <code className="text-sm">{`clean3_nooutliers <- clean3
 
 lm_model2 <- lm(op_21_percent ~ percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline, data = clean3_nooutliers)
 
@@ -406,7 +405,7 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit
     legend.title = element_text(size = 10, face = "bold"),
     
     legend.title.align = 0.5
-  ) `}</code>
+  )  `}</code>
           </pre>
           <div className="mt-6 mb-6">
             <img
@@ -433,33 +432,38 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_potable_water_use_per_unit
             The next scatter plot graphs a school’s OP 21 score against their
             percentage reduction in potablewater use per square foot of floor
             area. Once again, St. Thomas’ percentage reduction lags behindmost
-            of the schools. The line of best fit has the equationy= 0.0121x +
-            0.2155, indicating thatfor a 1 unit increase in the percentage
+            of the schools. The line of best fit has the equation y= 0.0121x +
+            0.2155, indicating that for a 1 unit increase in the percentage
             reduction in potable water use per square foot of floor area,the
             model predicts an increase of 0.0123 in the water use score percent
-            (with both coeﬀicients of theequation being statistically
-            significant). The adjusted r-squared value of 0.6717 indicates a
+            (with both coefficients of the equation being statistically
+            significant). The adjusted r-squared value of 0.6737 indicates a
             strongpositive correlation between the x and y variables such that
-            67.17% of the variability in the wateruse score (as a percent) is
+            67.37% of the variability in the water use score (as a percent) is
             explained by the model using percentage reduction in potable water
-            useper square foot of floor area as a predictor.This model suggests
-            that St. Thomas stands to gain from investing resources in further
-            reduction ofpotable water use per square foot of floor area, as
-            other institutions in the two groups were alwaysawarded higher
-            scores with greater reduction (however, it should be noted that
-            schools also receivedhigher scores with less reduction). Although
-            the slope of this equation is slightly greater than theprevious
-            equation (0.0121 vs. 0.0117), the smaller adjusted r-squared value
-            (0.6717 vs. 0.8529)suggests that more time invested in improving
-            reduction in water use per square foot of floor areawill not yield a
-            greater gain in OP 21 score (as a percent) than time invested in
-            improving reductionin water use per person.
+            useper square foot of floor area as a predictor.{" "}
+          </p>
+          <p>
+            This model suggests that St. Thomas stands to gain from investing
+            resources in further reduction ofpotable water use per square foot
+            of floor area, as other institutions in the two groups were
+            alwaysawarded higher scores with greater reduction (however, it
+            should be noted that schools also receivedhigher scores with less
+            reduction). Although the slope of this equation is slightly greater
+            than theprevious equation (0.0121 vs. 0.0117), the smaller adjusted
+            r-squared value (0.6737 vs. 0.8529)suggests that more time invested
+            in improving reduction in water use per square foot of floor
+            areawill not yield a greater gain in OP 21 score (as a percent) than
+            time invested in improving reductionin water use per person.
           </p>
           <pre
             className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-6"
             style={{ maxWidth: "80vw", margin: "0 auto" }}
           >
-            <code className="text-sm">{`lm_model3 <- lm(op_21_percent ~ percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, data = clean3_nooutliers)
+            <code className="text-sm">{`clean3_nooutliers <- clean3 |>
+  filter(institution != "UMN")
+
+lm_model3 <- lm(op_21_percent ~ percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline, data = clean3_nooutliers)
 
 coefficients <- coef(lm_model3)
 intercept <- coefficients[1]
@@ -527,28 +531,32 @@ ggplot(aes(y=op_21_percent, x=percentage_reduction_in_total_water_withdrawal_per
           <p>
             The last scatter plot graphs a school's OP 21 score against their
             percentage reduction in potable water use per acre of vegetated
-            grounds. St. Thomas' percentage reduction lags behind some of the
-            schools, but not as many as the previous graphs. The line of best
-            fit has the equation `y= 0.0105x + 0.5045`, indicating that for a 1
-            unit increase in the percentage reduction in potable water use per
-            acre of vegetated grounds, the model predicts an increase of 0.0105
-            in the water use score percent (with both coefficients of the
-            equation being statistically significant). The adjusted r-squared
-            value of 0.4652 indicates a strong positive correlation between the
-            x and y variables such that 46.52% of the variability in the water
-            use score (as a percent) is explained by the model using percentage
-            reduction in potable water use per acre of vegetated grounds as a
-            predictor. This model suggests that St. Thomas stands to gain from
-            investing resources in further reduction of potable water use per
-            square foot of floor area, as other institutions in the two groups
-            were always awarded higher scores with greater reduction (however,
-            it should be noted that schools also received higher scores with
-            less reduction). The slightly smaller slope (0.0105 vs. 0.0123 vs.
-            0.0117) and much lower adjusted r-squared value (0.4652 vs. 0.6706
-            vs. 0.8529) of this equation than the previous equations suggests
-            that more time invested in improving reduction in water use per acre
-            of vegetated grounds will not yield a greater gain in OP 21 score
-            (as a percent) than the other percentage reduction variables.
+            grounds. The -113 percentage reduction of UMN Twin Cities was deemed
+            and outlier and removed from the data set. St. Thomas' percentage
+            reduction lags behind some of the schools, but not as many as the
+            previous graphs. The line of best fit has the equation `y= 0.0105x +
+            0.5045`, indicating that for a 1 unit increase in the percentage
+            reduction in potable water use per acre of vegetated grounds, the
+            model predicts an increase of 0.0105 in the water use score percent
+            (with both coefficients of the equation being statistically
+            significant). The adjusted r-squared value of 0.4652 indicates a
+            strong positive correlation between the x and y variables such that
+            46.52% of the variability in the water use score (as a percent) is
+            explained by the model using percentage reduction in potable water
+            use per acre of vegetated grounds as a predictor.
+          </p>
+          <p>
+            This model suggests that St. Thomas stands to gain from investing
+            resources in further reduction of potable water use per square foot
+            of floor area, as other institutions in the two groups were always
+            awarded higher scores with greater reduction (however, it should be
+            noted that schools also received higher scores with less reduction).
+            The slightly smaller slope (0.0105 vs. 0.0123 vs. 0.0117) and much
+            lower adjusted r-squared value (0.4652 vs. 0.6737 vs. 0.8529) of
+            this equation than the previous equations suggests that more time
+            invested in improving reduction in water use per acre of vegetated
+            grounds will not yield a greater gain in OP 21 score (as a percent)
+            than the other percentage reduction variables.
           </p>
           <p>
             The goal of the final set of visualizations is to see exactly where
