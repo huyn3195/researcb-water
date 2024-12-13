@@ -1,8 +1,11 @@
+"use client";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import CodeDropdown from "@/components/CodeDropdown";
+import { useState } from "react";
 
 export default function Advanced() {
+  const [isOpen, setIsOpen] = useState(false);
   const code1 = `universities_of_interest <- c(
     "Creighton University",
     "Gonzaga University",
@@ -455,13 +458,24 @@ ggplot(clean3, aes(
           </div>
           <CodeDropdown code={code8} />
           <div className="mt-6 mb-6">
-            <img
-              src="/screenshots/pic15.png" // Absolute path to the screenshot
-              alt="Summary Statistics Screenshot"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            >
+              {isOpen
+                ? "Hide Summary of Linear Model"
+                : "Show Summary of Linear Model"}
+            </button>
+            {isOpen && (
+              <div className="mt-4">
+                <img
+                  src="/screenshots/pic15.png"
+                  alt="Summary Statistics Screenshot"
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+              </div>
+            )}
           </div>
-
           <p>
             The first scatter plot graphs a school’s OP 21 score (as a percent
             for easier comparison acrossphysical risk quantities) against their
@@ -493,11 +507,23 @@ ggplot(clean3, aes(
           </div>
           <CodeDropdown code={code11} />
           <div className="mt-6 mb-6">
-            <img
-              src="/screenshots/pic18.png" // Absolute path to the screenshot
-              alt="Summary Statistics Screenshot"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            >
+              {isOpen
+                ? "Hide Summary of Linear Model"
+                : "Show Summary of Linear Model"}
+            </button>
+            {isOpen && (
+              <div className="mt-4">
+                <img
+                  src="/screenshots/pic18.png"
+                  alt="Summary Statistics Screenshot"
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+              </div>
+            )}
           </div>
 
           <p>
@@ -540,11 +566,23 @@ ggplot(clean3, aes(
           </div>
           <CodeDropdown code={code14} />
           <div className="mt-6 mb-6">
-            <img
-              src="/screenshots/pic21.png" // Absolute path to the screenshot
-              alt="Summary Statistics Screenshot"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-300"
+            >
+              {isOpen
+                ? "Hide Summarry of Linear Model"
+                : "Show Summary of Linear Model"}
+            </button>
+            {isOpen && (
+              <div className="mt-4">
+                <img
+                  src="/screenshots/pic21.png"
+                  alt="Summary Statistics Screenshot"
+                  className="w-full h-auto rounded-lg shadow-lg"
+                />
+              </div>
+            )}
           </div>
           <p>
             The last scatter plot graphs a school's OP 21 score against their
