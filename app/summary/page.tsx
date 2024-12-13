@@ -180,10 +180,10 @@ export default function Summary() {
           {/* Code block */}
         </div>
         <Link
-          href="/advanced"
+          href="/visualizations"
           className="mt-4 rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
         >
-          Phase 2: Advanced Visualizations
+          Preliminary Visualizations
         </Link>
       </div>
     </div>

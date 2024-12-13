@@ -166,19 +166,19 @@ export default function Home() {
           >
             Data Wrangling
           </Link>
-
-          <Link
-            href="/visualizations"
-            className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
-          >
-            Phase 1: Data Visualizations
-          </Link>
           <Link
             href="/summary"
             className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
           >
             Summary Statistics
           </Link>
+          <Link
+            href="/visualizations"
+            className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
+          >
+            Phase 1: Data Visualizations
+          </Link>
+
           <Link
             href="/advanced"
             className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
