@@ -345,7 +345,7 @@ ggplot(clean3, aes(
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Phase 2 Advanced Analysis
+          Part 4: Advanced Analysis
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
           The first three visualizations concern just Catholic Benchmark

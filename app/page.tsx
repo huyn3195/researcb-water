@@ -176,14 +176,14 @@ export default function Home() {
             href="/visualizations"
             className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
           >
-            Phase 1: Data Visualizations
+            Data Visualizations
           </Link>
 
           <Link
             href="/advanced"
             className="rounded-full bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition-colors"
           >
-            Phase 2: Advanced Visualizations
+            Advanced Visualizations
           </Link>
         </section>
       </main>

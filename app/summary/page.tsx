@@ -82,7 +82,7 @@ export default function Summary() {
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Summary Statistic
+          Part 2: Summary Statistic
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
           Learn how we processed our data

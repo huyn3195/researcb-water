@@ -204,7 +204,7 @@ values = c("1 (Low and Low to Medium)" = "limegreen",
       <Navbar />
       <div className="flex flex-col items-start justify-start flex-grow p-8">
         <h1 className="text-4xl font-semibold text-left text-green-800">
-          Preliminary Visualizations
+          Part 3: Preliminary Visualizations
         </h1>
         <p className="text-lg text-gray-700 text-left mt-4">
           Learn what we found
