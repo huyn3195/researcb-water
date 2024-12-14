@@ -1,19 +1,14 @@
 ---
 author: "Cameron Doffing, Isaiah Giebel, Kate Groskreutz, Nguyen Cat Huynh"
 
-title: "Project Phase 1"
+title: "Water Research"
 format: 
   pdf:
     title-block-style: default
     include-in-header: 
       text: |
         \usepackage[headsepline,plainheadsepline]{scrlayer-scrpage}
-        \rohead*{Prof. Jasper}
-        \rehead*{Prof. Jasper}
-        \cohead{Midterm 2}
-        \cehead{Midterm 2}
-        \lehead*{DASC 130}
-        \lohead*{DASC 130}
+       
         \cofoot[]{}
         \cefoot[]{}
         \rofoot*{\pagemark}
