@@ -46,17 +46,26 @@ export default function Home() {
             <p className="text-lg mt-4 text-gray-700">
               The Association for the Advancement of Sustainability in Higher
               Education (AASHE) partners with higher education institutions to
-              promote sustainable practices. The organization's STARS program
+              promote sustainable practices. The organization’s STARS program
               serves as a concrete metric by which to measure and celebrate
-              schools that reach certain levels of sustainability. The
-              University of St. Thomas is among the 360 institutions that have a
-              valid (non-expired) STARS rating. Given the Office of
+              schools that reach certain levels of sustainability.
+            </p>
+            <p className="text-lg mb-4 text-gray-700">
+              The University of St. Thomas is among the 360 institutions that
+              have a valid (non-expired) STARS rating. Given the Office of
               Sustainability Initiatives (OSI) of St. Thomas wishes to improve
               their rating, our group decided to explore the performance of
               participating schools in their ability to reduce water use (called
-              the OP 21 credit). One of the OSI's guiding questions of the data
-              exploration asked for an OP 21 credit score comparison between St.
-              Thomas and one of the two following groups of institutions:
+              the OP 21 credit). This credit score was chosen because St. Thomas
+              scored 1.98 out of 6 possible points in this category, indicating
+              that improvement is needed. The high quantity of numeric variables
+              in the dataset would also influence the decision, as we could more
+              easily quantify the water use performance of institutions.
+            </p>
+            <p className="text-lg mb-4 text-gray-700">
+              One of the OSI’s guiding questions of the data exploration asked
+              for an OP 21 credit score comparison between St. Thomas and one of
+              the two following groups of institutions:
             </p>
             <div className="pl-4 mt-6">
               <p className="text-lg text-gray-700">
