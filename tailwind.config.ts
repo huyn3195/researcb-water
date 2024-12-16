@@ -15,4 +15,9 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    // Ensure these classes are included even if not explicitly referenced
+    "image-smooth",
+    "image-pixel",
+  ],
 } satisfies Config;

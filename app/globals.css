@@ -37,3 +37,14 @@ body {
     animation: gradient-bg 10s ease infinite;
   }
 }
+@layer utilities {
+  .image-smooth {
+    image-rendering: smooth;
+  }
+  .image-pixel {
+    image-rendering: pixelated;
+  }
+}
+.custom-list li::marker {
+  color: rgb(139, 128, 128); /* Change to your preferred color */
+}

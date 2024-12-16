@@ -89,9 +89,8 @@ clean1 <- clean1 |>
             Preparing for New Variables
           </h2>
           <p>
-            Preparing for the creation of new variables using equations derived
-            from current data, many of the variables needed to be changed from
-            type character to numeric.
+            Many of the variables needed to be changed from type character to
+            numeric.
           </p>
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
@@ -103,8 +102,10 @@ clean1 <- clean1 |>
             Add missing data to the dataset
           </h2>
           <p>
-            There are school that are missing in the dataset, University of
-            Minnesota, Duluth and Gonzaga University
+            Two of the schools of interest for comparison (University of
+            Minnesota-Duluth and Gonzaga University) were not present in the
+            original data set despite having STARS ratings under version 2.2.
+            Therefore, these two institutions were added manually.
           </p>
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
@@ -191,12 +192,12 @@ clean1 <- clean1 |> bind_rows(new_rows)`}
           </pre>
           <h2 className="font-semibold text-2xl mt-4">Add score</h2>
           <p>
-            Using themax_part_ptscolumn and following the part 1-3 points earned
-            formulas on the scoringguide, the final OP 21 score for each school
-            was calculated. Although not mentioned in the scoringguide but
-            required to recreate the original values, schools scoring below 0 or
-            above the maximumin a part had their score rounded to the respective
-            bound (0 or max, whichever is closer)
+            Using the max_part_ptscolumn and following the part 1-3 points
+            earned formulas on the scoringguide, the final OP 21 score for each
+            school was calculated. Although not mentioned in the scoringguide
+            but required to recreate the original values, schools scoring below
+            0 or above the maximumin a part had their score rounded to the
+            respective bound (0 or max, whichever is closer)
           </p>
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
@@ -235,6 +236,18 @@ as.numeric((clean1[[59]]/0.3)*((clean1[[50]]-clean1[[49]])/clean1[[50]]))), clea
       TRUE ~ NA_character_
     )
   )`}
+            </code>
+          </pre>
+          <h2 className="font-semibold text-2xl mt-4">Percentage change</h2>
+          <p>
+            To better compare institutions across different physical risk
+            quantities, a op_21_percent variable was created to represent the
+            credit score as a percent rather than a fraction.
+          </p>
+          <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
+            <code className="text-sm">
+              {`clean1 <- clean1 |>
+  mutate(op_21_percent = clean1[[63]] / (clean1[[59]]*3))`}
             </code>
           </pre>
         </div>

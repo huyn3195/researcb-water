@@ -3,76 +3,27 @@ import Link from "next/link";
 import CodeDropdown from "@/components/CodeDropdown";
 
 export default function Summary() {
-  const code1 = `clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(op21_score, na.rm = TRUE),
-    Q1 = quantile(op21_score, probs = 0.25, na.rm = TRUE),
-    median = median(op21_score, na.rm = TRUE),
-    Q3 = quantile(op21_score, probs = 0.75, na.rm = TRUE),
-    max = max(op21_score, na.rm = TRUE),
-    mean = mean(op21_score, na.rm = TRUE),
-    sd = sd(op21_score, na.rm = TRUE),
-    IQR = IQR(op21_score, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`;
-  const code2 = `clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(p1_pts, na.rm = TRUE),
-    Q1 = quantile(p1_pts, probs = 0.25, na.rm = TRUE),
-    median = median(p1_pts, na.rm = TRUE),
-    Q3 = quantile(p1_pts, probs = 0.75, na.rm = TRUE),
-    max = max(p1_pts, na.rm = TRUE),
-    mean = mean(p1_pts, na.rm = TRUE),
-    sd = sd(p1_pts, na.rm = TRUE),
-    IQR = IQR(p1_pts, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`;
-  const code3 = `clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(p2_pts, na.rm = TRUE),
-    Q1 = quantile(p2_pts, probs = 0.25, na.rm = TRUE),
-    median = median(p2_pts, na.rm = TRUE),
-    Q3 = quantile(p2_pts, probs = 0.75, na.rm = TRUE),
-    max = max(p2_pts, na.rm = TRUE),
-    mean = mean(p2_pts, na.rm = TRUE),
-    sd = sd(p2_pts, na.rm = TRUE),
-    IQR = IQR(p2_pts, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`;
-  const code4 = `clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(p3_pts, na.rm = TRUE),
-    Q1 = quantile(p3_pts, probs = 0.25, na.rm = TRUE),
-    median = median(p3_pts, na.rm = TRUE),
-    Q3 = quantile(p3_pts, probs = 0.75, na.rm = TRUE),
-    max = max(p3_pts, na.rm = TRUE),
-    mean = mean(p3_pts, na.rm = TRUE),
-    sd = sd(p3_pts, na.rm = TRUE),
-    IQR = IQR(p3_pts, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`;
-  const code5 = `clean1 |>
-  group_by(risk_group) |>
-  summarize(
-    min = min(total_water_withdrawal_performance_year, na.rm = TRUE),
-    Q1 = quantile(total_water_withdrawal_performance_year, probs = 0.25, na.rm = TRUE),
-    median = median(total_water_withdrawal_performance_year, na.rm = TRUE),
-    Q3 = quantile(total_water_withdrawal_performance_year, probs = 0.75, na.rm = TRUE),
-    max = max(total_water_withdrawal_performance_year, na.rm = TRUE),
-    mean = mean(total_water_withdrawal_performance_year, na.rm = TRUE),
-    sd = sd(total_water_withdrawal_performance_year, na.rm = TRUE),
-    IQR = IQR(total_water_withdrawal_performance_year, na.rm = TRUE),
-    count = n()
-  ) |>
-  slice(-4)`;
+  const code1 = `summ_stats <- function(var_name) {
+    clean1 |>
+    group_by(risk_group) |>
+    summarize(
+      min = min({{var_name}}, na.rm = TRUE),
+      Q1 = quantile({{var_name}}, probs = 0.25, na.rm = TRUE),
+      median = median({{var_name}}, na.rm = TRUE),
+      Q3 = quantile({{var_name}}, probs = 0.75, na.rm = TRUE),
+      max = max({{var_name}}, na.rm = TRUE),
+      mean = mean({{var_name}}, na.rm = TRUE),
+      sd = sd({{var_name}}, na.rm = TRUE),
+      IQR = IQR({{var_name}}, na.rm = TRUE),
+      count = n()
+    ) |>
+    slice(-4)
+  }
+  summ_stats(op21_score)`;
+  const code2 = `summ_stats(p1_pts)`;
+  const code3 = `summ_stats(p2_pts)`;
+  const code4 = `summ_stats(p3_pts)`;
+  const code5 = `summ_stats(total_water_withdrawal_performance_year)`;
   const code6 = `clean1 <- clean1 |>
   mutate(percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline = (clean1[[36]]-clean1[[35]])/clean1[[36]],
          percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline = ((clean1[[50]]-clean1[[49]])/clean1[[50]])
@@ -89,24 +40,30 @@ export default function Summary() {
         </p>
 
         <div className="mt-8 text-lg text-gray-700">
-          <h2 className="font-semibold text-2xl mt-4">OP21 Score</h2>
-          <p>
+          <h2 className="font-semibold text-2xl mt-6 mb-4">OP21 Score</h2>
+          <p className="mb-4">
             For calculating summary statistics, the variables concerning OP 21
             score, potable water use per weighted campus user reduction (part 1
             points), potable water use per gross square meter/foot of floor area
             reduction (part 2 points), and total water use per acre of vegetated
-            ground (part 3 points) were of most interest. When separating these
-            four variables by risk group, a few common characteristics are
-            revealed. First, at 212 schools, risk group 1 (low and low to medium
-            risk schools) contains over 100 more schools than risk group 2
-            (medium to high risk) and risk group 3 (high and extremely high
-            risk) combined, at 57 and 51 schools respectively. However, risk
-            group 3 consistently has the highest measures of standard deviation
-            across the four variables of the three risk groups. Eleven of the
-            twelve summary statistics are skewed to the left because the medians
-            are greater than the means. However, for the distribution of part 3
-            points for risk group 2 schools, the distribution is slightly skewed
-            to the right, as the mean exceeds the median by 0.04 points.
+            ground (part 3 points) were of most interest.
+          </p>
+          <p className="mb-4">
+            When separating these four variables by risk group, a few common
+            characteristics are revealed. First, at 212 schools, risk group 1
+            (low and low to medium risk schools) contains over 100 more schools
+            than risk group 2 (medium to high risk) and risk group 3 (high and
+            extremely high risk) combined, at 57 and 51 schools respectively.
+            However, risk group 3 consistently has the highest measures of
+            standard deviation across the four variables of the three risk
+            groups.
+          </p>
+          <p className="mb-4">
+            Eleven of the twelve summary statistics are skewed to the left
+            because the medians are greater than the means. However, for the
+            distribution of part 3 points for risk group 2 schools, the
+            distribution is slightly skewed to the right, as the mean exceeds
+            the median by 0.04 points.
           </p>
 
           {/* Code block */}

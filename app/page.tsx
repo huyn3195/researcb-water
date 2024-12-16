@@ -121,9 +121,46 @@ export default function Home() {
                   stress and scarcity" as well as "relative water abundance."
                 </li>
                 <li>
-                  These physical risk quantities determine the total available
-                  points that an institution can earn for the OP 21 credit
+                  These three physical risk groups are derived from the{" "}
+                  <a
+                    href="https://www.wri.org/applications/aqueduct/water-risk-atlas/#/?advanced=false&basemap=hydro&indicator=w_awr_def_tot_cat&lat=30&lng=-80&mapMode=view&month=1&opacity=0.5&ponderation=DEF&predefined=false&projection=absolute&scenario=optimistic&scope=baseline&threshold&timeScale=annual&year=baseline&zoom=3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
+                  >
+                    World Resources Institute’s (WRI’s) Aqueduct Water Risk
+                    Atlas
+                  </a>{" "}
                 </li>
+                <li>
+                  The WRI determines physical risk quantity from these factors
+                  (From the{" "}
+                  <a
+                    href="https://files.wri.org/d8/s3fs-public/2023-08/aqueduct-40-technical-note.pdf?VersionId=G_TxTR2LAnlgXGzy7xtdUP_5lmkXJY7d&_gl=1*l11ue1*_gcl_au*MTAzMjY0NTcxOS4xNzM0MzI4MDQ2"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
+                  >
+                    WRI Aquaduct 4.0 water risk framework):
+                  </a>{" "}
+                  <div className="mt-6 mb-6">
+                    <img
+                      src="/screenshots/physical_risk.png"
+                      alt="Summary Statistics Screenshot"
+                      className="w-full h-auto rounded-lg shadow-lg image-smooth"
+                    />
+                  </div>
+                  <ul className="custom-list list-disc list-inside text-gray-600 text-sm sm:text-base mt-2 ml-6">
+                    <li>
+                      Higher risk institutions lie on areas that may have
+                      greater competition of accessing water (high
+                      stress/depletion), high variability (inconsistent supply),
+                      decreasing groundwater supply, or high flood/drought risk
+                      (vice versa for lower risk institutions)
+                    </li>
+                  </ul>
+                </li>
+
                 <li>
                   The OP 21 score is comprised of three parts:
                   <ol className="list-decimal list-inside text-gray-600 text-sm sm:text-base mt-2 ml-6">
