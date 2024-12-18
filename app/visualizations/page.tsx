@@ -202,16 +202,7 @@ guides(fill = guide_legend(title = NULL))`;
               Then, a specific color palette was imported, helping the viewer
               visualize the context of the graph.
             </p>
-            <p className="mb-4">
-              The above bar chart counts the number of institutions in each
-              classification of physical risk quantity. Filtering was done to
-              include each institution that had a value for their physical risk
-              quantity. To get the classifications in the correct order, a
-              manual order had to be written that would make the more sense.
-              Then, a specific color palette was imported, helping the viewer
-              visualize the context of the graph.
-            </p>
-            <p className="mb-4">
+            <p>
               According to this visualization, a majority of these institutions
               are classified as having a physical risk quantity of “Low” or “Low
               to Medium”. As the physical risk groups increase in severity, we
@@ -253,7 +244,7 @@ guides(fill = guide_legend(title = NULL))`;
               improvement in their reduction. These higher risk groups
               especially need to target a higher reduction.
             </p>
-            <p className="mb-4">
+            <p>
               Given the schools of focus are within two groups (Catholic
               Benchmark and MN Peer institutions), The dataset was filtered to
               just include these two groups for further visualizations.
@@ -281,7 +272,7 @@ guides(fill = guide_legend(title = NULL))`;
               both total water withdrawal and area of vegetated grounds into
               their year types (baseline or performance).
             </p>
-            <p className="mb-4">
+            <p>
               There are a few patterns/conclusions we can find from the graph.
               Almost all schools have a very apparent drop in total water
               withdrawal while keeping essentially the same area of vegetated
