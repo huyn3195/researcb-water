@@ -19,12 +19,13 @@ export default function Visualizations() {
                                  "Extremely High" = "#e12729")) +
     geom_bar(stat = "count", na.rm = TRUE) +
     labs(title = "Distribution of Physical Risk Quantity Across Institutions",
-  x = "Physical Risk Quantity", y = "Count", fill = "Risk Level") +
+  x = "Physical Risk Quantity", y = "Count", fill = "Risk Level", subtitle = "All Participating Institutions") +
     theme(
       plot.title = 
-  element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+  element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 10)),
       axis.title.y = 
-      element_text(size = 10, face = "bold", margin = margin(r = 20)),  
+      element_text(size = 10, face = "bold", margin = margin(r = 20)),
+      plot.subtitle = element_text(size = 9, hjust = 0.5),
       axis.title.x = 
       element_text(size = 10, face = "bold", margin = margin(t = 10)),
       legend.position = "none")
@@ -49,9 +50,10 @@ export default function Visualizations() {
   title = str_wrap(
   "Reduction in Potable Water Use per Weighted Campus User by Physical Risk"),
   x = "Physical Risk", 
-  y = str_wrap("Percentage Reduction in Potable Water Use per Weighted Campus User (%)")) +
+  y = str_wrap("Percentage Reduction in Potable Water Use per Weighted Campus User (%)"), subtitle = "All Participating Institutions") +
     theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+      plot.subtitle = element_text(size = 9, hjust = 0.5),
       axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
       axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
       legend.position = "none"
@@ -90,51 +92,94 @@ export default function Visualizations() {
     "University of St. Thomas"
   )
   
-  clean1_transformed <- clean1 |>
-    select(-area_of_vegetated_grounds) |>
+  clean1_filtered <- clean1 |>
+    select(-potable_water_use) |>
     filter(institution %in% catholic_benchmark_institutions | 
            institution %in% mn_peer_institutions) |>
     pivot_longer(
       cols = 
-  c(total_water_withdrawal_performance_year, 
-    total_water_withdrawal_baseline_year), 
+  c(potable_water_use_performance_year, 
+    potable_water_use_baseline_year), 
       names_to = "year", 
-      values_to = "total_water_withdrawal") |>
-    pivot_longer(
-      cols = 
-  c(area_of_vegetated_grounds_performance_year, 
-    area_of_vegetated_grounds_baseline_year), 
-      names_to = "placeholder", 
-      values_to = "area_of_vegetated_grounds") |>
+      values_to = "potable_water_use") |>
     mutate(
       year_type = recode(year, 
-      total_water_withdrawal_performance_year = "Performance Year",
-      total_water_withdrawal_baseline_year = "Baseline Year")
+      potable_water_use_performance_year = "Performance Year",
+      potable_water_use_baseline_year = "Baseline Year")
     )
+    
   
-  ggplot(clean1_transformed, aes(x = area_of_vegetated_grounds, 
-                                 y = total_water_withdrawal)) +
-    geom_point(aes(color = year_type)) +
-    labs(
-      title = "Area of Vegetated Grounds vs. Total Water Withdrawal",
-      subtitle = "MN Peer & Catholic Benchmark Institutions",
-      x = "Area of Vegetated Grounds (acres)",
-      y = "Total Water Withdrawal (gal)"
-    ) +
-    guides(color = guide_legend(title = NULL)) +
+  ggplot(data = clean1_filtered, aes(x = potable_water_use, color = year_type )) +
+    geom_density(size = 1.5) +
     scale_color_manual(
-    values = 
-    c("Baseline Year" = "darkgreen", "Performance Year" = "green")) +
-    theme_minimal() +
-    theme(
-  plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
-  plot.subtitle = element_text(size = 9, hjust = 0.5),
-  axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 10)),  
-      axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
-      legend.position = "top"
+      values = c('Baseline Year' = 'darkblue', 'Performance Year' = 'blue'),
+      breaks = c('Baseline Year', 'Performance Year'), 
+      labels = c('Baseline Year', 'Performance Year')
     ) +
-    guides(fill = guide_legend(title = NULL))`;
+    labs(
+      color = "Year Type",
+      x = "Potable Water Use (gal)",
+      y = "Density",
+      title = "Potable Water Use for Baseline and Performance Years",
+      subtitle = "MN Peer & Catholic Benchmark Institutions",
+    ) +
+    theme(
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5),
+      plot.subtitle = element_text(size = 9, hjust = 0.5),
+      axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+      axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
+      
+      legend.position = "bottom",
+      
+      legend.text = element_text(size = 8, face = "bold"),
+      legend.title = element_text(size = 10, face = "bold"),
+      
+      legend.title.align = 0.5
+    )`;
+  const code4 = `clean1_transformed <- clean1 |>
+  select(-area_of_vegetated_grounds) |>
+  filter(institution %in% catholic_benchmark_institutions | 
+         institution %in% mn_peer_institutions) |>
+  pivot_longer(
+    cols = 
+c(total_water_withdrawal_performance_year, 
+  total_water_withdrawal_baseline_year), 
+    names_to = "year", 
+    values_to = "total_water_withdrawal") |>
+  pivot_longer(
+    cols = 
+c(area_of_vegetated_grounds_performance_year, 
+  area_of_vegetated_grounds_baseline_year), 
+    names_to = "placeholder", 
+    values_to = "area_of_vegetated_grounds") |>
+  mutate(
+    year_type = recode(year, 
+    total_water_withdrawal_performance_year = "Performance Year",
+    total_water_withdrawal_baseline_year = "Baseline Year")
+  )
 
+ggplot(clean1_transformed, aes(x = area_of_vegetated_grounds, 
+                               y = total_water_withdrawal)) +
+  geom_point(aes(color = year_type)) +
+  labs(
+    title = "Area of Vegetated Grounds vs. Total Water Withdrawal",
+    subtitle = "MN Peer & Catholic Benchmark Institutions",
+    x = "Area of Vegetated Grounds (acres)",
+    y = "Total Water Withdrawal (gal)"
+  ) +
+  guides(color = guide_legend(title = NULL)) +
+  scale_color_manual(
+  values = 
+  c("Baseline Year" = "darkgreen", "Performance Year" = "green")) +
+  theme_minimal() +
+  theme(
+plot.title = element_text(size = 12, face = "bold", hjust = 0.5),
+plot.subtitle = element_text(size = 9, hjust = 0.5),
+axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 10)),  
+    axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
+    legend.position = "top"
+  ) +
+  guides(fill = guide_legend(title = NULL))`;
   const code5 = `clean2 <- clean1 |>
   filter(institution %in% catholic_benchmark_institutions | 
 institution %in% mn_peer_institutions)
@@ -175,9 +220,7 @@ guides(fill = guide_legend(title = NULL))`;
         <h1 className="text-4xl font-semibold text-left text-green-800">
           Part 3: Preliminary Visualizations
         </h1>
-        <p className="text-lg text-gray-700 text-left mt-4">
-          Learn what we found
-        </p>
+        
 
         <div className="mt-8 text-lg text-gray-700">
           <h2 className="font-semibold text-2xl mt-4">
@@ -254,6 +297,37 @@ guides(fill = guide_legend(title = NULL))`;
           <CodeDropdown code={code3} />
           <div className="mt-6 mb-6">
             <img
+              src="/screenshots/pic25.png" // Absolute path to the screenshot
+              alt="Summary Statistics Screenshot"
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+          </div>
+          <TextBox className="mb-8 mt-4">
+            <p className="mb-4">
+              The density plot shows the distribution of potable water use in
+              gallons for institutions in the MN Peer and Catholic Benchmark
+              groups. The line color indicates whether the line represents the
+              water use measurement for the performance or baseline year. To
+              create this visualization the data needed further transformation.
+              The data was filtered to only include the two groups of
+              institutions we are working with and a pivot longer was applied to
+              allow for differentiation between the baseline year and the
+              performance year using two separate lines and colors.
+            </p>
+            <p>
+              From this density plot we can see that the median potable water
+              use for both year types is likely between 50 and 200 million
+              gallons. The performance year appears to have a mean that is a
+              little lower than the baseline year’s mean. Both distributions are
+              heavily skewed right due to a couple of outliers. Most
+              institutions in MN Peer and Catholic Benchmark Institutions used
+              less than 200 million gallons of water for both year types, but a
+              couple institutions used a much greater amount.
+            </p>
+          </TextBox>
+          <CodeDropdown code={code4} />
+          <div className="mt-6 mb-6">
+            <img
               src="/screenshots/pic8.png" // Absolute path to the screenshot
               alt="Summary Statistics Screenshot"
               className="w-full h-auto rounded-lg shadow-lg"
@@ -267,7 +341,7 @@ guides(fill = guide_legend(title = NULL))`;
               of the dots indicates whether the measurements are for the
               performance year or the baseline year. To further prepare the data
               for use in this graphic we needed to filter on the desired schools
-              and perform to pivot longers. The pivot longers are what allowed
+              and perform two pivot longers. The pivot longers are what allowed
               us to differentiate year type by color in the graph by breaking
               both total water withdrawal and area of vegetated grounds into
               their year types (baseline or performance).

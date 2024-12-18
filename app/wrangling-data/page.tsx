@@ -10,9 +10,6 @@ export default function WranglingData() {
         <h1 className="text-4xl font-semibold text-left text-green-800">
           Part 1: Wrangling Data
         </h1>
-        <p className="text-lg text-gray-700 text-left mt-4">
-          Learn how we collected and processed the data for our analysis.
-        </p>
 
         <div className="mt-8 text-lg text-gray-700">
           <h2 className="font-semibold text-2xl mt-4">Data Cleaning</h2>
@@ -233,7 +230,7 @@ as.numeric((clean1[[59]]/0.3)*((clean1[[50]]-clean1[[49]])/clean1[[50]]))), clea
           <h2 className="font-semibold text-2xl mt-4">Categorize</h2>
           <TextBox className="mt-2 mb-8">
             <p>
-              Finally, a categorical variablerisk_group, dividing the schools
+              Finally, a categorical variable risk_group, dividing the schools
               among the same logic as themax_part_ptsvariable, was created to
               aid in summary statistics and visualizations wishing tocompare
               schools by a condensed (three groups instead of five) categorical

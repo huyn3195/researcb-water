@@ -35,9 +35,6 @@ export default function Summary() {
         <h1 className="text-4xl font-semibold text-left text-green-800">
           Part 2: Summary Statistic
         </h1>
-        <p className="text-lg text-gray-700 text-left mt-4">
-          Learn how we processed our data
-        </p>
 
         <div className="mt-8 text-lg text-gray-700">
           <h2 className="font-semibold text-2xl mt-6 mb-4">OP21 Score</h2>

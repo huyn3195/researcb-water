@@ -33,7 +33,7 @@ export default function Home() {
         <section className="w-full flex flex-col sm:flex-row items-center justify-between gap-8">
           <div className="flex-1 text-center sm:text-left">
             <h1 className="text-5xl font-semibold text-blue-800">
-              Welcome to Our Project
+              WATER USAGE PROJECT
             </h1>
             <p className="text-lg mt-4 text-gray-700">
               A comprehensive analysis of water consumption at St. Thomas
@@ -41,7 +41,7 @@ export default function Home() {
               and story.
             </p>
             <h2 className="text-3xl font-semibold text-blue-800 mt-8">
-              Introduction
+              INTRODUCTION
             </h2>
             <p className="text-lg mt-4 text-gray-700">
               The Association for the Advancement of Sustainability in Higher
