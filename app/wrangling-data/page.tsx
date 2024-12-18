@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
+import TextBox from "@/components/TextBox";
 
 export default function WranglingData() {
   return (
@@ -15,11 +16,11 @@ export default function WranglingData() {
 
         <div className="mt-8 text-lg text-gray-700">
           <h2 className="font-semibold text-2xl mt-4">Data Cleaning</h2>
-          <p>
+          <TextBox className="mt-2 mb-8">
             To begin data cleaning, values in the dataset intended as NA values
             (but visible as "--" and "**" characters) needed to be recognized as
             official dataframe NA values.
-          </p>
+          </TextBox>
 
           {/* Code block */}
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
@@ -31,11 +32,11 @@ export default function WranglingData() {
           </pre>
 
           <h2 className="font-semibold text-2xl mt-4">Date Conversion</h2>
-          <p>
+          <TextBox className="mt-2 mb-8">
             Next, four variables of dates, which were previously stored as
             serial date numbers (in the tens of thousands), needed to be
             converted to the Date type.
-          </p>
+          </TextBox>
 
           {/* Code block */}
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
@@ -46,12 +47,12 @@ export default function WranglingData() {
           </pre>
 
           <h2 className="font-semibold text-2xl mt-4">Column Renaming</h2>
-          <p>
+          <TextBox className="mt-2 mb-8">
             A general cleaning of names soon followed using the \`janitor\`
             package, with the sixth column receiving a new name to replace the
             previous verbose title which contained special characters difficult
             to type.
-          </p>
+          </TextBox>
 
           {/* Code block */}
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
@@ -65,12 +66,14 @@ clean1 <- clean1 |>
           <h2 className="font-semibold text-2xl mt-4">
             Manual Fix for University Names
           </h2>
-          <p>
-            Similarly, the original excel spreadsheet resolved the &quot;é&quot;
-            and &quot;à&quot; characters of seven university names to incorrect
-            characters such as the square root and copyright symbol, so these
-            names were manually fixed as well.
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              Similarly, the original excel spreadsheet resolved the
+              &quot;é&quot; and &quot;à&quot; characters of seven university
+              names to incorrect characters such as the square root and
+              copyright symbol, so these names were manually fixed as well.
+            </p>
+          </TextBox>
 
           {/* Code block */}
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
@@ -88,10 +91,13 @@ clean1 <- clean1 |>
           <h2 className="font-semibold text-2xl mt-4">
             Preparing for New Variables
           </h2>
-          <p>
-            Many of the variables needed to be changed from type character to
-            numeric.
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              Many of the variables needed to be changed from type character to
+              numeric.
+            </p>
+          </TextBox>
+
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
               {`clean1[c(7, 8, 9, 11:12, 20:ncol(clean1))] <- 
@@ -101,12 +107,15 @@ clean1 <- clean1 |>
           <h2 className="font-semibold text-2xl mt-4">
             Add missing data to the dataset
           </h2>
-          <p>
-            Two of the schools of interest for comparison (University of
-            Minnesota-Duluth and Gonzaga University) were not present in the
-            original data set despite having STARS ratings under version 2.2.
-            Therefore, these two institutions were added manually.
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              Two of the schools of interest for comparison (University of
+              Minnesota-Duluth and Gonzaga University) were not present in the
+              original data set despite having STARS ratings under version 2.2.
+              Therefore, these two institutions were added manually.
+            </p>
+          </TextBox>
+
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
               {`new_rows <- tibble(
@@ -160,21 +169,24 @@ clean1 <- clean1 |> bind_rows(new_rows)`}
             </code>
           </pre>
           <h2 className="font-semibold text-2xl mt-4">Finishing the data</h2>
-          <p>
-            As outlined on the{" "}
-            <a
-              href="https://drive.google.com/file/d/1Ij27SHfozgEp2rdWs8slBkOX7UH1H4oq/view"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
-            >
-              OP 21 scoring guide
-            </a>{" "}
-            (version 2.2), schools were assigned one of three point maximums
-            (4/3, 5/3, or 2) for their three-part score. This assignment was
-            determined by the schools' physical risk quantities, as replicated
-            in our wrangling with the creation of a `max_part_pts` column.
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              As outlined on the{" "}
+              <a
+                href="https://drive.google.com/file/d/1Ij27SHfozgEp2rdWs8slBkOX7UH1H4oq/view"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-600"
+              >
+                OP 21 scoring guide
+              </a>{" "}
+              (version 2.2), schools were assigned one of three point maximums
+              (4/3, 5/3, or 2) for their three-part score. This assignment was
+              determined by the schools' physical risk quantities, as replicated
+              in our wrangling with the creation of a `max_part_pts` column.
+            </p>
+          </TextBox>
+
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
               {`clean1 <- clean1 |>
@@ -191,14 +203,17 @@ clean1 <- clean1 |> bind_rows(new_rows)`}
             </code>
           </pre>
           <h2 className="font-semibold text-2xl mt-4">Add score</h2>
-          <p>
-            Using the max_part_ptscolumn and following the part 1-3 points
-            earned formulas on the scoringguide, the final OP 21 score for each
-            school was calculated. Although not mentioned in the scoringguide
-            but required to recreate the original values, schools scoring below
-            0 or above the maximumin a part had their score rounded to the
-            respective bound (0 or max, whichever is closer)
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              Using the max_part_ptscolumn and following the part 1-3 points
+              earned formulas on the scoringguide, the final OP 21 score for
+              each school was calculated. Although not mentioned in the
+              scoringguide but required to recreate the original values, schools
+              scoring below 0 or above the maximumin a part had their score
+              rounded to the respective bound (0 or max, whichever is closer)
+            </p>
+          </TextBox>
+
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
               {`clean1 <- clean1 |>
@@ -216,13 +231,16 @@ as.numeric((clean1[[59]]/0.3)*((clean1[[50]]-clean1[[49]])/clean1[[50]]))), clea
             </code>
           </pre>
           <h2 className="font-semibold text-2xl mt-4">Categorize</h2>
-          <p>
-            Finally, a categorical variablerisk_group, dividing the schools
-            among the same logic as themax_part_ptsvariable, was created to aid
-            in summary statistics and visualizations wishing tocompare schools
-            by a condensed (three groups instead of five) categorical
-            representation of theirphysical risk quantity
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              Finally, a categorical variablerisk_group, dividing the schools
+              among the same logic as themax_part_ptsvariable, was created to
+              aid in summary statistics and visualizations wishing tocompare
+              schools by a condensed (three groups instead of five) categorical
+              representation of theirphysical risk quantity
+            </p>
+          </TextBox>
+
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
               {`clean1 <- clean1 |>
@@ -239,11 +257,14 @@ as.numeric((clean1[[59]]/0.3)*((clean1[[50]]-clean1[[49]])/clean1[[50]]))), clea
             </code>
           </pre>
           <h2 className="font-semibold text-2xl mt-4">Percentage change</h2>
-          <p>
-            To better compare institutions across different physical risk
-            quantities, a op_21_percent variable was created to represent the
-            credit score as a percent rather than a fraction.
-          </p>
+          <TextBox className="mt-2 mb-8">
+            <p>
+              To better compare institutions across different physical risk
+              quantities, a op_21_percent variable was created to represent the
+              credit score as a percent rather than a fraction.
+            </p>
+          </TextBox>
+
           <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto">
             <code className="text-sm">
               {`clean1 <- clean1 |>

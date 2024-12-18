@@ -1,5 +1,4 @@
 "use client"; // Ensures client-side interactivity in Next.js
-
 import { FC, useState } from "react";
 
 interface CodeDropdownProps {
@@ -25,9 +24,9 @@ const CodeDropdown: FC<CodeDropdownProps> = ({ code }) => {
 
       {/* Code Block */}
       {isOpen && (
-        <div className="bg-gray-100 p-4 rounded-lg overflow-x-auto mt-3 shadow-lg">
-          <pre>
-            <code className="text-sm whitespace-pre-wrap">{code}</code>
+        <div className="bg-gray-100 p-4 rounded-lg mt-3 shadow-lg overflow-x-auto max-w-full">
+          <pre className="overflow-x-auto whitespace-pre-wrap break-all">
+            <code className="text-sm">{code}</code>
           </pre>
         </div>
       )}

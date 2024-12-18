@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
 import CodeDropdown from "@/components/CodeDropdown";
-
+import TextBox from "@/components/TextBox";
 export default function Summary() {
   const code1 = `summ_stats <- function(var_name) {
     clean1 |>
@@ -41,30 +41,32 @@ export default function Summary() {
 
         <div className="mt-8 text-lg text-gray-700">
           <h2 className="font-semibold text-2xl mt-6 mb-4">OP21 Score</h2>
-          <p className="mb-4">
-            For calculating summary statistics, the variables concerning OP 21
-            score, potable water use per weighted campus user reduction (part 1
-            points), potable water use per gross square meter/foot of floor area
-            reduction (part 2 points), and total water use per acre of vegetated
-            ground (part 3 points) were of most interest.
-          </p>
-          <p className="mb-4">
-            When separating these four variables by risk group, a few common
-            characteristics are revealed. First, at 212 schools, risk group 1
-            (low and low to medium risk schools) contains over 100 more schools
-            than risk group 2 (medium to high risk) and risk group 3 (high and
-            extremely high risk) combined, at 57 and 51 schools respectively.
-            However, risk group 3 consistently has the highest measures of
-            standard deviation across the four variables of the three risk
-            groups.
-          </p>
-          <p className="mb-4">
-            Eleven of the twelve summary statistics are skewed to the left
-            because the medians are greater than the means. However, for the
-            distribution of part 3 points for risk group 2 schools, the
-            distribution is slightly skewed to the right, as the mean exceeds
-            the median by 0.04 points.
-          </p>
+          <TextBox className="mb-10">
+            <p className="mb-4">
+              For calculating summary statistics, the variables concerning OP 21
+              score, potable water use per weighted campus user reduction (part
+              1 points), potable water use per gross square meter/foot of floor
+              area reduction (part 2 points), and total water use per acre of
+              vegetated ground (part 3 points) were of most interest.
+            </p>
+            <p className="mb-4">
+              When separating these four variables by risk group, a few common
+              characteristics are revealed. First, at 212 schools, risk group 1
+              (low and low to medium risk schools) contains over 100 more
+              schools than risk group 2 (medium to high risk) and risk group 3
+              (high and extremely high risk) combined, at 57 and 51 schools
+              respectively. However, risk group 3 consistently has the highest
+              measures of standard deviation across the four variables of the
+              three risk groups.
+            </p>
+            <p className="mb-4">
+              Eleven of the twelve summary statistics are skewed to the left
+              because the medians are greater than the means. However, for the
+              distribution of part 3 points for risk group 2 schools, the
+              distribution is slightly skewed to the right, as the mean exceeds
+              the median by 0.04 points.
+            </p>
+          </TextBox>
 
           {/* Code block */}
           <CodeDropdown code={code1} />
@@ -99,7 +101,7 @@ export default function Summary() {
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <p>
+          <TextBox className="mb-8">
             For the fifth variable, exploring total water use (or withdrawal) of
             the performance years, separatedby risk group, was chosen. This
             variable may be useful in understanding why schools of similar
@@ -112,7 +114,7 @@ export default function Summary() {
             ameasure of spread more resistant to outliers, may be a better
             metric to compare variation betweenthe risk groups for further
             analysis
-          </p>
+          </TextBox>
           <CodeDropdown code={code5} />
           <div className="mt-6 mb-6">
             <img
@@ -121,14 +123,14 @@ export default function Summary() {
               className="w-full h-auto rounded-lg shadow-lg"
             />
           </div>
-          <p>
+          <TextBox className="mb-8">
             Identifying the three parts of the OP 21 score as measuring
             percentage reduction in water use across different situations, the
             creation of visualizations comparing school performance of these
             three parts was of interest. However, two schools were missing
             values for the percentage reduction despite having OP 21 credit
             scores, so these percentages were recalculated.
-          </p>
+          </TextBox>
           <CodeDropdown code={code6} />
           {/* Code block */}
 
