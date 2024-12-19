@@ -125,12 +125,12 @@ export default function Home() {
             <div className="pl-4 mt-6">
               <ul className="list-disc list-inside text-gray-600 text-sm sm:text-base ml-4">
                 <li>
-                  Institutions are divided into one of three categories of
-                  physical risk quantity, determined by the amount of "water
-                  stress and scarcity" as well as "relative water abundance."
+                  Institutions are divided into one of five categories of
+                  physical risk quantity, determined by the amount of “water
+                  stress and scarcity” as well as “relative water abundance.”
                 </li>
                 <li>
-                  These three physical risk groups are derived from the{" "}
+                  These five physical risk groups are derived from the{" "}
                   <a
                     href="https://www.wri.org/applications/aqueduct/water-risk-atlas/#/?advanced=false&basemap=hydro&indicator=w_awr_def_tot_cat&lat=30&lng=-80&mapMode=view&month=1&opacity=0.5&ponderation=DEF&predefined=false&projection=absolute&scenario=optimistic&scope=baseline&threshold&timeScale=annual&year=baseline&zoom=3"
                     target="_blank"
