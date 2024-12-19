@@ -180,13 +180,15 @@ ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit
     title = "Water Use Score by Reduction in Potable Water Use per Person",
     x = "Reduction in Potable Water Use Per Person (percentage)",
     y = "Water Use Score (%)",
-    color = "Physical Risk Quantity"
+    color = "Physical Risk Quantity",
+    subtitle = "MN Peer & Catholic Benchmark Institutions"
   ) +
   scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
   labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
   theme_minimal() +
   theme(
-    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+    plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
     axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
     axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
     
@@ -221,13 +223,15 @@ ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit
       title = "Water Use Score by Reduction in Potable Water Use per Square Foot of Floor Area",
       x = "Reduction in Potable Water Use Per Square Foot of Floor Area (percentage)",
       y = "Water Use Score (%)",
-      color = "Physical Risk Quantity"
+      color = "Physical Risk Quantity",
+      subtitle = "MN Peer & Catholic Benchmark Institutions"
     ) +
     scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
     labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
     theme_minimal() + 
     theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+      plot.subtitle = element_text(size = 9, hjust = 0.5),
       axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
       axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
       
@@ -237,7 +241,7 @@ ggplot(data = clean2, aes(x = percentage_reduction_in_potable_water_use_per_unit
       legend.title = element_text(size = 10, face = "bold"),
       
       legend.title.align = 0.5
-    ) `;
+    )  `;
   const code11 = `summary(lm_model2)`;
   const code12 = `clean3_nooutliers <- clean3 |>
   filter(institution != "UMN")
@@ -263,14 +267,16 @@ cat("Equation of the line: y =", round(intercept, 2), "+", round(slope, 2), "* x
       title = "Water Use Score by Reduction in Total Water Withdrawal per Acre of Vegetated Grounds",
       x = "Reduction in Total Water Withdrawal Per Acre of Vegetated Grounds (percentage)",
       y = "Water Use Score (%)",
-      color = "Physical Risk Quantity"
+      color = "Physical Risk Quantity",
+      subtitle = "MN Peer & Catholic Benchmark Institutions"
     ) +
     scale_color_manual(values = c("darkgreen", "#CD9600", "red", "gray20"), 
     labels = c("Low/Low to Medium", "Medium/High", "High/Extremely High")) +
     theme_minimal() +  
     theme(
-      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 20)),
-      axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),  
+      plot.title = element_text(size = 10, face = "bold", hjust = 0.5, margin = margin(b = 10)),
+      axis.title.y = element_text(size = 8, face = "bold", margin = margin(r = 20)),
+      plot.subtitle = element_text(size = 9, hjust = 0.5),
       axis.title.x = element_text(size = 8, face = "bold", margin = margin(t = 10)),
       
       legend.position = "bottom",
@@ -293,12 +299,16 @@ ggplot(clean3, aes(
   x = percentage_reduction_in_potable_water_use_per_weighted_campus_user_from_baseline,
 )) +
   geom_bar(stat = "identity", fill = "blue3") +
-  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Campus User From Baseline Year") +
+  labs(y = "Institution", 
+       x = "Percentage Reduction", 
+       title = "Reduction in Water Use Per Campus User From Baseline Year",
+       subtitle = "Catholic Benchmark Institutions") +
   scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
   theme_minimal() +
   theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 10)),
     plot.title.position = "plot",
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
     axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
     axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
     
@@ -315,12 +325,16 @@ ggplot(clean3, aes(
   x = percentage_reduction_in_total_water_withdrawal_per_unit_of_vegetated_grounds_from_baseline,
 )) +
   geom_bar(stat = "identity", fill = "blue3") +
-  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Vegetated Grounds From Baseline Year") +
+  labs(y = "Institution", 
+       x = "Percentage Reduction", 
+       title = "Reduction in Water Use Per Unit of Vegetated Grounds From Baseline Year",
+       subtitle = "Catholic Benchmark Institutions") +
   scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
   theme_minimal() +
   theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 10)),
     plot.title.position = "plot",
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
     axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
     axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
     
@@ -338,12 +352,16 @@ ggplot(clean3, aes(
   x = percentage_reduction_in_potable_water_use_per_unit_of_floor_area_from_baseline,
 )) +
   geom_bar(stat = "identity", fill = "blue3") +
-  labs(y = "Institution", x = "Percentage Reduction", title = "Reduction in Water Use Per Unit of Floor Area From Baseline Year") +
+  labs(y = "Institution", 
+       x = "Percentage Reduction", 
+       title = "Reduction in Water Use Per Unit of Floor Area From Baseline Year",
+       subtitle = "Catholic Benchmark Institutions",) +
   scale_x_continuous(breaks = seq(-20, 100, by = 10)) +
   theme_minimal() +
   theme(
-        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 20)),
+        plot.title = element_text(size = 12, face = "bold", hjust = 0.5, margin = margin(b = 10)),
     plot.title.position = "plot",
+    plot.subtitle = element_text(size = 9, hjust = 0.5),
     axis.title.y = element_text(size = 10, face = "bold", margin = margin(r = 20)),  
     axis.title.x = element_text(size = 10, face = "bold", margin = margin(t = 10)),
     
